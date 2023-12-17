@@ -1,2 +1,2 @@
 # HospitalManagementSystem
-JAVA  Desktop App implementing RMI
+JAVA  Desktop App implementing RMI, Hibernate, Mysql
