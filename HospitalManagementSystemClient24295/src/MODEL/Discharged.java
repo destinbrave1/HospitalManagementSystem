@@ -8,6 +8,7 @@ package MODEL;
 import java.util.Date;
 
 
+
 /**
  *
  * @author destin
@@ -16,7 +17,7 @@ import java.util.Date;
 public class Discharged {
 
     private Integer id;
-     private String discharged_id;
+    private String discharged_id;
     private String discharged_name;
     private String discharged_sickness;
     private String discharged_amount_paid;

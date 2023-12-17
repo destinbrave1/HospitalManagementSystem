@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package DAO;
-import MODEL.UserAccounts;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 /**
  *
  * @author destin
  */
-public class DaoUserAccounts {
-      public String registerUserAccounts(UserAccounts object){
+import MODEL.Department;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+public class DaoDepartment {
+    
+    public String registerDepartment(Department object){
         try{
         
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -28,7 +31,7 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public String updateUserAccounts(UserAccounts object){
+    public String updateDepartment(Department object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -41,7 +44,7 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public String deleteUserAccounts(UserAccounts object){
+    public String deleteDepartment(Department object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -54,23 +57,23 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public List<UserAccounts> allUserAccountss(){
+    public List<Department> allDepartment(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<UserAccounts> patients = ss.createQuery("select theUserAccounts from UserAccounts theUserAccounts").list();
+            List<Department> departmentObj = ss.createQuery("select theDepartment from Department theDepartment").list();
             ss.close();
-            return patients;
+            return departmentObj;
         }catch(Exception ex){
             ex.printStackTrace();
         }
         return null;
     }
-    public UserAccounts searchUserAccounts(UserAccounts object){
+    public Department searchDepartment(Department object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            UserAccounts theUserAccounts = (UserAccounts)ss.get(UserAccounts.class, object.getUseriD());
+            Department theDepartment = (Department)ss.get(Department.class, object.getDep_id());
             ss.close();
-            return theUserAccounts;
+            return theDepartment;
         }catch(Exception ex){
             ex.printStackTrace();
         }

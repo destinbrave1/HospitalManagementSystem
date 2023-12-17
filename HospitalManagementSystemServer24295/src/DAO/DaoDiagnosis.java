@@ -4,16 +4,18 @@
  * and open the template in the editor.
  */
 package DAO;
-import MODEL.Emergency;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 /**
  *
  * @author destin
  */
-public class DaoEmergencyRoom {
-      public String registerEmergency(Emergency object){
+import MODEL.Diagnosis;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+public class DaoDiagnosis {
+    
+     public String registerDiagnosis(Diagnosis object){
         try{
         
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -28,7 +30,7 @@ public class DaoEmergencyRoom {
         }
         return null;
     }
-    public String updateEmergency(Emergency object){
+    public String updateDiagnosis(Diagnosis object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -41,7 +43,7 @@ public class DaoEmergencyRoom {
         }
         return null;
     }
-    public String deleteEmergency(Emergency object){
+    public String deleteDiagnosis(Diagnosis object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -54,23 +56,23 @@ public class DaoEmergencyRoom {
         }
         return null;
     }
-    public List<Emergency> allEmergencys(){
+    public List<Diagnosis> allDiagnosis(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<Emergency> patients = ss.createQuery("select theEmergency from Emergency theEmergency").list();
+            List<Diagnosis> diagnosisObject = ss.createQuery("select theDiagnosis from Diagnosis theDiagnosis").list();
             ss.close();
-            return patients;
+            return diagnosisObject;
         }catch(Exception ex){
             ex.printStackTrace();
         }
         return null;
     }
-    public Emergency searchEmergency(Emergency object){
+    public Diagnosis searchDiagnosis(Diagnosis object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            Emergency theEmergency = (Emergency)ss.get(Emergency.class, object.getEmergency_id());
+            Diagnosis theDiagnosis = (Diagnosis)ss.get(Diagnosis.class, object.getId());
             ss.close();
-            return theEmergency;
+            return theDiagnosis;
         }catch(Exception ex){
             ex.printStackTrace();
         }

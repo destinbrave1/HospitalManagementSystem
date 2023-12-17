@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package DAO;
-import MODEL.Appointments;
+import MODEL.Stuff;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,10 +12,8 @@ import org.hibernate.Transaction;
  *
  * @author destin
  */
-
-public class DaoAppointments {
-    
-    public String registerAppointments(Appointments object){
+public class DaoStuff {
+      public String registerStuff(Stuff object){
         try{
         
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +28,7 @@ public class DaoAppointments {
         }
         return null;
     }
-    public String updateAppointments(Appointments object){
+    public String updateStuff(Stuff object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -43,7 +41,7 @@ public class DaoAppointments {
         }
         return null;
     }
-    public String deleteAppointments(Appointments object){
+    public String deleteStuff(Stuff object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -56,10 +54,10 @@ public class DaoAppointments {
         }
         return null;
     }
-    public List<Appointments> allAppointmentss(){
+    public List<Stuff> allStuffs(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<Appointments> patients = ss.createQuery("select theAppointments from Appointments theAppointments").list();
+            List<Stuff> patients = ss.createQuery("select theStuff from Stuff theStuff").list();
             ss.close();
             return patients;
         }catch(Exception ex){
@@ -67,12 +65,12 @@ public class DaoAppointments {
         }
         return null;
     }
-    public Appointments searchAppointments(Appointments object){
+    public Stuff searchStuff(Stuff object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            Appointments theAppointments = (Appointments)ss.get(Appointments.class, object.getPatient_national_id());
+            Stuff theStuff = (Stuff)ss.get(Stuff.class, object.getStuffId());
             ss.close();
-            return theAppointments;
+            return theStuff;
         }catch(Exception ex){
             ex.printStackTrace();
         }

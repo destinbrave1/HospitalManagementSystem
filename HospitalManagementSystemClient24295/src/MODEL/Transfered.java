@@ -6,13 +6,12 @@
 package MODEL;
 
 import java.util.Date;
-
 /**
  *
  * @author destin
  */
-public class Transfered {
 
+public class Transfered {
     private Integer id;
     private String transfered_id;
     private String transfered_name;

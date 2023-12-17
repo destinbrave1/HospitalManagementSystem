@@ -7,13 +7,13 @@ package MODEL;
 
 import java.util.Date;
 
+
 /**
  *
  * @author destin
  */
 
 public class TransactionPharmacy {
-
     private Integer id;
     private String patient_id;
     private String patient_name;

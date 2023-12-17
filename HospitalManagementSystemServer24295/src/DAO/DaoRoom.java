@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 package DAO;
-import MODEL.Appointments;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 /**
  *
  * @author destin
  */
+import MODEL.Rooms;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-public class DaoAppointments {
+public class DaoRoom {
     
-    public String registerAppointments(Appointments object){
+     public String registerRooms(Rooms object){
         try{
         
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +31,7 @@ public class DaoAppointments {
         }
         return null;
     }
-    public String updateAppointments(Appointments object){
+    public String updateRooms(Rooms object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -43,7 +44,7 @@ public class DaoAppointments {
         }
         return null;
     }
-    public String deleteAppointments(Appointments object){
+    public String deleteRooms(Rooms object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -56,23 +57,23 @@ public class DaoAppointments {
         }
         return null;
     }
-    public List<Appointments> allAppointmentss(){
+    public List<Rooms> allRooms(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<Appointments> patients = ss.createQuery("select theAppointments from Appointments theAppointments").list();
+            List<Rooms> roomObjt = ss.createQuery("select theRooms from Rooms theRooms").list();
             ss.close();
-            return patients;
+            return roomObjt;
         }catch(Exception ex){
             ex.printStackTrace();
         }
         return null;
     }
-    public Appointments searchAppointments(Appointments object){
+    public Rooms searchRooms(Rooms object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            Appointments theAppointments = (Appointments)ss.get(Appointments.class, object.getPatient_national_id());
+            Rooms theRooms = (Rooms)ss.get(Rooms.class, object.getRoom_no());
             ss.close();
-            return theAppointments;
+            return theRooms;
         }catch(Exception ex){
             ex.printStackTrace();
         }

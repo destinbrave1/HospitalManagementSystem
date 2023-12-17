@@ -69,7 +69,7 @@ public class DaoInpatients {
     public Inpatients searchInpatients(Inpatients object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            Inpatients theInpatients = (Inpatients)ss.get(Inpatients.class, object.getInpatient_id());
+            Inpatients theInpatients = (Inpatients)ss.get(Inpatients.class, object.getPatient_national_id());
             ss.close();
             return theInpatients;
         }catch(Exception ex){
