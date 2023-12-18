@@ -6,19 +6,18 @@
 package MODEL;
 
 import java.util.Date;
-import javax.persistence.*;
+
 
 
 /**
  *
  * @author destin
  */
-@Entity
+
 public class Discharged {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-     private String discharged_id;
+    private String discharged_id;
     private String discharged_name;
     private String discharged_sickness;
     private String discharged_amount_paid;

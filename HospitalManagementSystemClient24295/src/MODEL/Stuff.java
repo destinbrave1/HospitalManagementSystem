@@ -6,75 +6,117 @@
 package MODEL;
 
 import java.sql.Blob;
-import javax.persistence.*;
+import java.util.List;
 
 /**
  *
  * @author destin
  */
-@Entity
-public class UserAccounts {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Stuff {
     private Integer id;
-    private String useriD;
-    private String username;
-    private String email_address;
-    private String phone_number;
-    private String department;
+    private String stuffId;
+    private String stuffUsername;
+    private String stuffEmail_address;
+    private String stuffPhone_number;
+    private Department department;
     private String password;
-    private String repeat_password;
     private Blob image;
-
+    private List<Diagnosis> diagnosis;
     // New attribute for Base64-encoded image data
     private String base64Image;
 
-    public UserAccounts() {
+    public Stuff() {
     }
 
-    public UserAccounts(String useriD, String username, String email_address, String phone_number, String password, String repeat_password, Blob image) {
-        this.useriD = useriD;
-        this.username = username;
-        this.email_address = email_address;
-        this.phone_number = phone_number;
+    public Stuff(String stuffId) {
+        this.stuffId = stuffId;
+    }
+
+    public Stuff(Integer id, String stuffId, String stuffUsername, String stuffEmail_address, String stuffPhone_number, Department department, String password, Blob image, List<Diagnosis> diagnosis, String base64Image) {
+        this.id = id;
+        this.stuffId = stuffId;
+        this.stuffUsername = stuffUsername;
+        this.stuffEmail_address = stuffEmail_address;
+        this.stuffPhone_number = stuffPhone_number;
+        this.department = department;
         this.password = password;
-        this.repeat_password = repeat_password;
         this.image = image;
+        this.diagnosis = diagnosis;
+        this.base64Image = base64Image;
     }
 
-    public String getUseriD() {
-        return useriD;
+    public Integer getId() {
+        return id;
     }
 
-    public String getUsername() {
-        return username;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getEmail_address() {
-        return email_address;
+    public String getStuffId() {
+        return stuffId;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public void setStuffId(String stuffId) {
+        this.stuffId = stuffId;
     }
 
-    public String getDepartment() {
+    public String getStuffUsername() {
+        return stuffUsername;
+    }
+
+    public void setStuffUsername(String stuffUsername) {
+        this.stuffUsername = stuffUsername;
+    }
+
+    public String getStuffEmail_address() {
+        return stuffEmail_address;
+    }
+
+    public void setStuffEmail_address(String stuffEmail_address) {
+        this.stuffEmail_address = stuffEmail_address;
+    }
+
+    public String getStuffPhone_number() {
+        return stuffPhone_number;
+    }
+
+    public void setStuffPhone_number(String stuffPhone_number) {
+        this.stuffPhone_number = stuffPhone_number;
+    }
+
+    public Department getDepartment() {
         return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getRepeat_password() {
-        return repeat_password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Blob getImage() {
         return image;
     }
 
-    // New getter and setter for Base64-encoded image data
+    public void setImage(Blob image) {
+        this.image = image;
+    }
+
+    public List<Diagnosis> getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(List<Diagnosis> diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
     public String getBase64Image() {
         return base64Image;
     }
@@ -83,36 +125,5 @@ public class UserAccounts {
         this.base64Image = base64Image;
     }
 
-    public void setUseriD(String useriD) {
-        this.useriD = useriD;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setEmail_address(String email_address) {
-        this.email_address = email_address;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRepeat_password(String repeat_password) {
-        this.repeat_password = repeat_password;
-    }
-
-    public void setImage(Blob image) {
-        this.image = image;
-    }
-
+   
 }

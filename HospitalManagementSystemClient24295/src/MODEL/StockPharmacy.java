@@ -6,16 +6,13 @@
 package MODEL;
 
 import java.util.Date;
-import javax.persistence.*;
 
 /**
  *
  * @author destin
  */
-@Entity
 public class StockPharmacy {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Integer id;
     private String drug_id_stock;
     private Date   drug_date_stock;

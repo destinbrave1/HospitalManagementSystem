@@ -70,7 +70,7 @@ public class DaoAppointments {
     public Appointments searchAppointments(Appointments object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            Appointments theAppointments = (Appointments)ss.get(Appointments.class, object.getPatient_id());
+            Appointments theAppointments = (Appointments)ss.get(Appointments.class, object.getPatient_national_id());
             ss.close();
             return theAppointments;
         }catch(Exception ex){

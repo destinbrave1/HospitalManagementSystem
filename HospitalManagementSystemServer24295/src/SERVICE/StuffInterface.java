@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 package SERVICE;
-import MODEL.UserAccounts;
+import MODEL.Stuff;
 import java.rmi.RemoteException;
 import java.util.List;
 /**
  *
  * @author destin
  */
-public interface UserAccountInterface {
+public interface StuffInterface {
     
-     public String RegisterUserAccounts(UserAccounts userAccounts) throws RemoteException;
-    public String updateUserAccounts(UserAccounts userAccounts) throws RemoteException;
-    public String deleteUserAccounts(UserAccounts userAccounts) throws RemoteException;
-    public List<UserAccounts> allUserAccounts()throws RemoteException;
-    public UserAccounts getuserAccountsById(UserAccounts userAccounts) throws RemoteException;
+     public String RegisterStuff(Stuff userAccounts) throws RemoteException;
+    public String updateStuff(Stuff userAccounts) throws RemoteException;
+    public String deleteStuff(Stuff userAccounts) throws RemoteException;
+    public List<Stuff> allStuff()throws RemoteException;
+    public Stuff getStuffsById(Stuff userAccounts) throws RemoteException;
 }

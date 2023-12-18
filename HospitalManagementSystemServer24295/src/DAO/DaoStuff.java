@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package DAO;
-import MODEL.UserAccounts;
+import MODEL.Stuff;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,8 +12,8 @@ import org.hibernate.Transaction;
  *
  * @author destin
  */
-public class DaoUserAccounts {
-      public String registerUserAccounts(UserAccounts object){
+public class DaoStuff {
+      public String registerStuff(Stuff object){
         try{
         
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -28,7 +28,7 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public String updateUserAccounts(UserAccounts object){
+    public String updateStuff(Stuff object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -41,7 +41,7 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public String deleteUserAccounts(UserAccounts object){
+    public String deleteStuff(Stuff object){
         try{
             // create session
             Session ss = HibernateUtil.getSessionFactory().openSession();
@@ -54,10 +54,10 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public List<UserAccounts> allUserAccountss(){
+    public List<Stuff> allStuffs(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<UserAccounts> patients = ss.createQuery("select theUserAccounts from UserAccounts theUserAccounts").list();
+            List<Stuff> patients = ss.createQuery("select theStuff from Stuff theStuff").list();
             ss.close();
             return patients;
         }catch(Exception ex){
@@ -65,12 +65,12 @@ public class DaoUserAccounts {
         }
         return null;
     }
-    public UserAccounts searchUserAccounts(UserAccounts object){
+    public Stuff searchStuff(Stuff object){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            UserAccounts theUserAccounts = (UserAccounts)ss.get(UserAccounts.class, object.getUseriD());
+            Stuff theStuff = (Stuff)ss.get(Stuff.class, object.getStuffId());
             ss.close();
-            return theUserAccounts;
+            return theStuff;
         }catch(Exception ex){
             ex.printStackTrace();
         }

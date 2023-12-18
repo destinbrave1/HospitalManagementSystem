@@ -5,44 +5,46 @@
  */
 package SERVICE.IMPLEMENTATION;
 
-import MODEL.UserAccounts;
-import SERVICE.UserAccountInterface;
+import MODEL.Stuff;
+import SERVICE.StuffInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
-import DAO.DaoUserAccounts;
+import DAO.DaoStuff;
 /**
  *
  * @author destin
  */
-public class UserAccountsImpl extends UnicastRemoteObject implements UserAccountInterface{
-    public UserAccountsImpl() throws RemoteException{
+public class StuffImpl extends UnicastRemoteObject implements StuffInterface{
+    public StuffImpl() throws RemoteException{
         super();
     }
-    public DaoUserAccounts dao = new DaoUserAccounts();
+    public DaoStuff dao = new DaoStuff();
+
     @Override
-    public String RegisterUserAccounts(UserAccounts userAccounts) throws RemoteException {
-       return dao.registerUserAccounts(userAccounts);
+    public String RegisterStuff(Stuff userAccounts) throws RemoteException {
+        return dao.registerStuff(userAccounts);
     }
 
     @Override
-    public String updateUserAccounts(UserAccounts userAccounts) throws RemoteException {
-       return dao.updateUserAccounts(userAccounts);
+    public String updateStuff(Stuff userAccounts) throws RemoteException {
+        return dao.updateStuff(userAccounts);
     }
 
     @Override
-    public String deleteUserAccounts(UserAccounts userAccounts) throws RemoteException {
-       return dao.deleteUserAccounts(userAccounts);
+    public String deleteStuff(Stuff userAccounts) throws RemoteException {
+       return dao.deleteStuff(userAccounts);
     }
 
     @Override
-    public List<UserAccounts> allUserAccounts() throws RemoteException {
-        return dao.allUserAccountss();
+    public List<Stuff> allStuff() throws RemoteException {
+       return dao.allStuffs();
     }
 
     @Override
-    public UserAccounts getuserAccountsById(UserAccounts userAccounts) throws RemoteException {
-        return dao.searchUserAccounts(userAccounts);
+    public Stuff getStuffsById(Stuff userAccounts) throws RemoteException {
+         return dao.searchStuff(userAccounts);
     }
+  
     
 }

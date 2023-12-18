@@ -6,16 +6,12 @@
 package MODEL;
 
 import java.util.Date;
-import javax.persistence.*;
-
 /**
  *
  * @author destin
  */
-@Entity
+
 public class Transfered {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String transfered_id;
     private String transfered_name;
