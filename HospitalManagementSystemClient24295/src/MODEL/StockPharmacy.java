@@ -12,7 +12,7 @@ import java.util.Date;
  * @author destin
  */
 public class StockPharmacy {
-
+    
     private Integer id;
     private String drug_id_stock;
     private Date   drug_date_stock;
