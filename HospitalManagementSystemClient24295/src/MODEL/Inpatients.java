@@ -6,14 +6,16 @@
 package MODEL;
 
 import java.util.Date;
-
+import javax.persistence.*;
 
 /**
  *
  * @author destin
  */
-
+@Entity
 public class Inpatients {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String inpatient_id;
     private String inpatient_name;

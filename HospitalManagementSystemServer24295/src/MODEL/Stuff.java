@@ -6,14 +6,16 @@
 package MODEL;
 
 import java.sql.Blob;
+import javax.persistence.*;
 
 /**
  *
  * @author destin
  */
-
+@Entity
 public class UserAccounts {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String useriD;
     private String username;
