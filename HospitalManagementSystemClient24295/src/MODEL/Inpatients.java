@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
  * @author destin
  */
 
-public class Inpatients {
+public class Inpatients implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer id;
     private String  patient_national_id;
     private String  inpatient_name;

@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -13,7 +14,8 @@ import java.util.Date;
  * @author destin
  */
 
-public class TransactionPharmacy {
+public class TransactionPharmacy implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer id;
     private String patient_id;
     private String patient_name;

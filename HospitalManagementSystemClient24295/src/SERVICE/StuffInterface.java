@@ -13,9 +13,10 @@ import java.util.List;
  */
 public interface StuffInterface {
     
-     public String RegisterStuff(Stuff userAccounts) throws RemoteException;
+    public String RegisterStuff(Stuff userAccounts) throws RemoteException;
     public String updateStuff(Stuff userAccounts) throws RemoteException;
     public String deleteStuff(Stuff userAccounts) throws RemoteException;
     public List<Stuff> allStuff()throws RemoteException;
     public Stuff getStuffsById(Stuff userAccounts) throws RemoteException;
+    boolean validateUserLogin(String username, String password) throws RemoteException;
 }

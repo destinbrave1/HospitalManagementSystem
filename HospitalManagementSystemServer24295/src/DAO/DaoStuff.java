@@ -6,6 +6,7 @@
 package DAO;
 import MODEL.Stuff;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 /**
@@ -75,5 +76,28 @@ public class DaoStuff {
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean validateUserLogin(String username, String password) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+
+            String hql = "FROM Stuff WHERE username = :username AND password = :password";
+            Query query = session.createQuery(hql);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+
+            Stuff user = (Stuff) query.uniqueResult();
+
+            transaction.commit();
+            session.close();
+
+            return user != null;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

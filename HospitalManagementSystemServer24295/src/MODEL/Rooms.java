@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package MODEL;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -12,7 +13,8 @@ import javax.persistence.*;
  * @author destin
  */
 @Entity
-public class Rooms {
+public class Rooms implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;

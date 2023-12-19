@@ -5,6 +5,11 @@
  */
 package VIEW;
 
+import SERVICE.StuffInterface;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author destin
@@ -16,8 +21,17 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        addFunctionItems();
     }
-
+    private void addFunctionItems()
+    {
+        LoginCombo.removeAllItems();
+        LoginCombo.addItem(Functions.Doctor.toString());
+        LoginCombo.addItem(Functions.Nurse.toString());
+        LoginCombo.addItem(Functions.Receptionist.toString());
+        LoginCombo.addItem(Functions.Pharmacist.toString());
+        LoginCombo.addItem(Functions.Admin.toString());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,10 +50,10 @@ public class LoginPage extends javax.swing.JFrame {
         username_loginInput = new javax.swing.JTextField();
         passwordinpt = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        ClearBtn = new javax.swing.JButton();
+        Loginbtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        LoginCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(110, 155, 115));
@@ -82,11 +96,21 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel3.setText("HOSPITAL MANAGEMENT SYSTEM");
 
-        jButton1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButton1.setText("CLEAR");
+        ClearBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        ClearBtn.setText("CLEAR");
+        ClearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButton2.setText("LOGIN");
+        Loginbtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        Loginbtn.setText("LOGIN");
+        Loginbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginbtnActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Log in as :");
 
@@ -101,9 +125,10 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGap(0, 111, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,7 +138,7 @@ public class LoginPage extends javax.swing.JFrame {
                                         .addComponent(jLabel2))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(LoginCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(passwordinpt, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,11 +181,11 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LoginCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(157, 157, 157)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(Loginbtn)
+                    .addComponent(ClearBtn))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
 
@@ -170,6 +195,62 @@ public class LoginPage extends javax.swing.JFrame {
     private void username_loginInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_loginInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_username_loginInputActionPerformed
+
+    private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
+            // TODO add your handling code here:
+            username_loginInput.setText("");
+            passwordinpt.setText("");
+    }//GEN-LAST:event_ClearBtnActionPerformed
+
+    private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
+        // TODO add your handling code here:
+           
+           
+            try {
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+
+            // Lookup the remote object by its registered name
+             StuffInterface stuff = (StuffInterface)registry.lookup("stuffs");
+            // Perform login check
+            String username = username_loginInput.getText();
+            String password = new String(passwordinpt.getPassword());
+            boolean isValidLogin = stuff.validateUserLogin(username, password);
+
+            if (isValidLogin){
+            
+               if(LoginCombo.getSelectedItem().equals("Doctor") ||
+                    LoginCombo.getSelectedItem().equals("Nurse") ) {
+                JOptionPane.showMessageDialog(this,"Login successful");
+                dispose();
+                DoctorHomepage doctors = new DoctorHomepage();
+                doctors.show();
+                
+                 }
+               
+               else if(isValidLogin ||LoginCombo.getSelectedItem().equals("Pharmacist")){
+                JOptionPane.showMessageDialog(this,"Login successful");
+                dispose();
+                PharmacyHomepage pharmacist = new PharmacyHomepage();
+                pharmacist.show();
+            }
+            else if(isValidLogin ||LoginCombo.getSelectedItem().equals("Receptionist")){
+                JOptionPane.showMessageDialog(this,"Login successful");
+                dispose();
+                ReceptionistHomepage receptionist = new ReceptionistHomepage();
+                receptionist.show();
+            }
+            
+            } 
+            
+            else {
+                JOptionPane.showMessageDialog(this,"login fails","invalid credentials", JOptionPane.ERROR_MESSAGE);
+            
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_LoginbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,9 +288,9 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton ClearBtn;
+    private javax.swing.JComboBox<String> LoginCombo;
+    private javax.swing.JButton Loginbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

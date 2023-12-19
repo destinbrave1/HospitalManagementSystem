@@ -5,13 +5,15 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author destin
  */
-public class Diagnosis {
+public class Diagnosis implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer Id;
     private Date date;
     private Inpatients patient;

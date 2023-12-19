@@ -5,13 +5,15 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  *
  * @author destin
  */
 
-public class Transfered {
+public class Transfered implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer id;
     private String transfered_id;
     private String transfered_name;

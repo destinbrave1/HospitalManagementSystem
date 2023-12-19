@@ -5,13 +5,14 @@
  */
 package SERVICE;
 import MODEL.Transfered;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 /**
  *
  * @author destin
  */
-public interface TransferedInterface {
+public interface TransferedInterface extends Remote {
      public String RegisterTransfered(Transfered transfered) throws RemoteException;
     public String updateTransfered(Transfered transfered) throws RemoteException;
     public String deleteTransfered(Transfered transfered) throws RemoteException;

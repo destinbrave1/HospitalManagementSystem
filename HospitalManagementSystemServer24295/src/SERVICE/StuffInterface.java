@@ -5,17 +5,19 @@
  */
 package SERVICE;
 import MODEL.Stuff;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 /**
  *
  * @author destin
  */
-public interface StuffInterface {
+public interface StuffInterface extends Remote {
     
-     public String RegisterStuff(Stuff userAccounts) throws RemoteException;
+    public String RegisterStuff(Stuff userAccounts) throws RemoteException;
     public String updateStuff(Stuff userAccounts) throws RemoteException;
     public String deleteStuff(Stuff userAccounts) throws RemoteException;
     public List<Stuff> allStuff()throws RemoteException;
     public Stuff getStuffsById(Stuff userAccounts) throws RemoteException;
+    boolean validateUserLogin(String username, String password) throws RemoteException;
 }

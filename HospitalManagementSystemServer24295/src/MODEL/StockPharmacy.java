@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -13,7 +14,8 @@ import javax.persistence.*;
  * @author destin
  */
 @Entity
-public class StockPharmacy {
+public class StockPharmacy implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

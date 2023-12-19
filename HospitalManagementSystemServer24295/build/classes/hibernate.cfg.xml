@@ -41,20 +41,22 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hospital_management_system_db?zeroDateTimeBehavior=convertToNull [destin on Default schema]</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hospital_management_system_db?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">destin</property>
     <property name="hibernate.connection.password">Destin378464.</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="MODEL.Appointments"/>
+    <mapping class="MODEL.Department"/>
+    <mapping class="MODEL.Diagnosis"/>
     <mapping class="MODEL.Discharged"/>
-    <mapping class="MODEL.Emergency"/>
     <mapping class="MODEL.Inpatients"/>
+    <mapping class="MODEL.Rooms"/>
     <mapping class="MODEL.StockPharmacy"/>
+    <mapping class="MODEL.Stuff"/>
     <mapping class="MODEL.TransactionPharmacy"/>
     <mapping class="MODEL.Transfered"/>
-    <mapping class="MODEL.UserAccounts"/>
   </session-factory>
 </hibernate-configuration>

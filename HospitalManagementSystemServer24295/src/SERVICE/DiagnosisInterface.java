@@ -12,7 +12,7 @@ import MODEL.Diagnosis;
  *
  * @author destin
  */
-public interface DiagnosisInterface {
+public interface DiagnosisInterface extends Remote {
     
     public String Registerdiagnosis(Diagnosis diagnosis) throws RemoteException;
     public String updateDiagnosis(Diagnosis diagnosis) throws RemoteException;

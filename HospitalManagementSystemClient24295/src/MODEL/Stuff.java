@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
  *
  * @author destin
  */
-public class Stuff {
+public class Stuff implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer id;
     private String stuffId;
     private String stuffUsername;

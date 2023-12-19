@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
  * @author destin
  */
 
-public class Department {
+public class Department implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     private Integer Id;
     private String dep_id;
     private String dep_name;

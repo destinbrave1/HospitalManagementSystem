@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -14,7 +15,8 @@ import java.util.Date;
  * @author destin
  */
 
-public class Discharged {
+public class Discharged implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
 
     private Integer id;
     private String discharged_id;

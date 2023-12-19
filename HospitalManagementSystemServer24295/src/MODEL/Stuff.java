@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 import javax.persistence.*;
@@ -14,7 +15,8 @@ import javax.persistence.*;
  * @author destin
  */
 @Entity
-public class Stuff {
+public class Stuff implements Serializable {
+    private static final long serialVersionUID = 5149641714150001821L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

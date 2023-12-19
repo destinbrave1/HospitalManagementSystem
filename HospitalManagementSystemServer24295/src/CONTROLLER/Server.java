@@ -30,7 +30,7 @@ public class Server {
     public StockPharmacyImpl stockPharmacy;
     public TransactionPharmacyImpl transctionPharmacy;
     public TransferedImpl transfered;
-    public StuffImpl userAccounts;
+    public StuffImpl stuffsAccounts;
     
     public RoomImpl rooms;
     public DepartmentImpl departments;
@@ -45,7 +45,7 @@ public class Server {
         this.stockPharmacy = new StockPharmacyImpl();
         this.transctionPharmacy = new TransactionPharmacyImpl();
         this.transfered = new TransferedImpl();
-        this.userAccounts = new StuffImpl();
+        this.stuffsAccounts = new StuffImpl();
         
         this.rooms = new RoomImpl();
         this.departments = new DepartmentImpl();
@@ -64,7 +64,7 @@ public class Server {
             registry.rebind("stock", server.stockPharmacy);
             registry.rebind("transaction", server.transctionPharmacy);
             registry.rebind("transfered", server.transfered);
-            registry.rebind("stuffs", server.userAccounts);
+            registry.rebind("stuffs", server.stuffsAccounts);
             
             registry.rebind("rooms", server.rooms);
             registry.rebind("department", server.departments);
