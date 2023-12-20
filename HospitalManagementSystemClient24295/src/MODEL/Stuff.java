@@ -5,8 +5,11 @@
  */
 package MODEL;
 
+
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +26,7 @@ public class Stuff implements Serializable {
     private Department department;
     private String password;
     private Blob image;
-    private List<Diagnosis> diagnosis;
+    private List<Diagnosis> diagnosis = new ArrayList<>();
     // New attribute for Base64-encoded image data
     private String base64Image;
 

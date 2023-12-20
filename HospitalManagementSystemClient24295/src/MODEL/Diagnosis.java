@@ -15,9 +15,8 @@ import java.util.Date;
 public class Diagnosis implements Serializable {
     private static final long serialVersionUID = 5149641714150001821L;
     private Integer Id;
-    private Date date;
-    private Inpatients patient;
-    private Stuff stuff;
+    private Date date =new Date();
+  
 
     public Diagnosis() {
     }
@@ -25,8 +24,7 @@ public class Diagnosis implements Serializable {
     public Diagnosis(Integer Id, Date date, Inpatients patient, Stuff stuff) {
         this.Id = Id;
         this.date = date;
-        this.patient = patient;
-        this.stuff = stuff;
+ 
     }
 
     public Integer getId() {
@@ -45,21 +43,5 @@ public class Diagnosis implements Serializable {
         this.date = date;
     }
 
-    public Inpatients getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Inpatients patient) {
-        this.patient = patient;
-    }
-
-    public Stuff getStuff() {
-        return stuff;
-    }
-
-    public void setStuff(Stuff stuff) {
-        this.stuff = stuff;
-    }
-    
     
 }

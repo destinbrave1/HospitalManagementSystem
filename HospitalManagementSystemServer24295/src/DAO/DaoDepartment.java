@@ -11,6 +11,7 @@ package DAO;
  */
 import MODEL.Department;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -79,4 +80,37 @@ public class DaoDepartment {
         }
         return null;
     }
+    
+   public Department fetchDepartmentByName(String departmentName) {
+    try {
+        // Open a session
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        // Begin a transaction
+        session.beginTransaction();
+
+        // Query to fetch the Department entity by name
+        String hql = "FROM Department WHERE departmentName = :name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name", departmentName);
+
+        // Execute the query and get the result
+        Department department = (Department) query.uniqueResult();
+
+        // Commit the transaction
+        session.getTransaction().commit();
+
+        // Close the session
+        session.close();
+
+        return department;
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Handle exceptions or log errors as needed
+    }
+
+    return null;
+}
+
+    
 }

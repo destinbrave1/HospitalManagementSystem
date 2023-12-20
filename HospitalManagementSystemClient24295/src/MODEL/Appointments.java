@@ -23,11 +23,8 @@ public class Appointments implements Serializable {
     private String  date_of_birth;
     private String inpatient_sickness;
     private String inpatient_amount_paid;
-    private Department department;
-    private Rooms room;
     private String inpatient_phone_number;
     private Date inpatient_date_in;
-    private List<Diagnosis> diagnosis = new ArrayList<>();
 
     public Appointments() {
     }
@@ -36,15 +33,13 @@ public class Appointments implements Serializable {
         this.patient_national_id = patient_national_id;
     }
 
-    public Appointments(Integer id, String patient_national_id, String inpatient_name, String date_of_birth, String inpatient_sickness, String inpatient_amount_paid, Department department, Rooms room, String inpatient_phone_number, Date inpatient_date_in) {
+    public Appointments(Integer id, String patient_national_id, String inpatient_name, String date_of_birth, String inpatient_sickness, String inpatient_amount_paid, String inpatient_phone_number, Date inpatient_date_in) {
         this.id = id;
         this.patient_national_id = patient_national_id;
         this.inpatient_name = inpatient_name;
         this.date_of_birth = date_of_birth;
         this.inpatient_sickness = inpatient_sickness;
         this.inpatient_amount_paid = inpatient_amount_paid;
-        this.department = department;
-        this.room = room;
         this.inpatient_phone_number = inpatient_phone_number;
         this.inpatient_date_in = inpatient_date_in;
     }
@@ -97,22 +92,6 @@ public class Appointments implements Serializable {
         this.inpatient_amount_paid = inpatient_amount_paid;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Rooms getRoom() {
-        return room;
-    }
-
-    public void setRoom(Rooms room) {
-        this.room = room;
-    }
-
     public String getInpatient_phone_number() {
         return inpatient_phone_number;
     }
@@ -129,13 +108,8 @@ public class Appointments implements Serializable {
         this.inpatient_date_in = inpatient_date_in;
     }
 
-    public List<Diagnosis> getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(List<Diagnosis> diagnosis) {
-        this.diagnosis = diagnosis;
-    }
+   
+  
 
    
 }

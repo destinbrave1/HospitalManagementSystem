@@ -43,5 +43,10 @@ public class DepartmentImpl extends UnicastRemoteObject implements DepartmentInt
     public Department getdepartmentById(Department department) throws RemoteException {
         return dao.searchDepartment(department);
     }
+
+    @Override
+    public Department fetchDepartmentByName(String departmentName) throws RemoteException {
+       return dao.fetchDepartmentByName(departmentName);
+    }
     
 }

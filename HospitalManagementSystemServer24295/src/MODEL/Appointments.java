@@ -16,26 +16,22 @@ import javax.persistence.*;
  * @author destin
  */
 @Entity
+@Table(name="Appointment")
 public class Appointments implements Serializable {
-    private static final long serialVersionUID = 5149641714150001821L;
-     @Id
+    private static final long serialVersionUID = 5149641714150001821L; 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name="patient_passport")
     private String  patient_national_id;
     private String  inpatient_name;
     private String  date_of_birth;
     private String inpatient_sickness;
     private String inpatient_amount_paid;
-    @ManyToOne
-    @JoinColumn(name="department_id")
     private Department department;
-    @ManyToOne
-    @JoinColumn(name="room_no")
     private Rooms room;
     private String inpatient_phone_number;
     private Date inpatient_date_in;
-    @OneToMany(mappedBy = "patient")
-    private List<Diagnosis> diagnosis = new ArrayList<>();
 
     public Appointments() {
     }
@@ -137,13 +133,7 @@ public class Appointments implements Serializable {
         this.inpatient_date_in = inpatient_date_in;
     }
 
-    public List<Diagnosis> getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(List<Diagnosis> diagnosis) {
-        this.diagnosis = diagnosis;
-    }
+  
 
    
 }

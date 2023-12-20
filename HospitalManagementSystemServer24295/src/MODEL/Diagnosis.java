@@ -19,7 +19,7 @@ public class Diagnosis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    private Date date;
+    private Date date =new Date();
     @ManyToOne
     @JoinColumn(name="patient_id")
     private Inpatients patient;

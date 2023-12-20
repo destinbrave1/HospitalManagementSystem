@@ -7,8 +7,10 @@ package MODEL;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+
 
 /**
  *
@@ -25,12 +27,12 @@ public class Stuff implements Serializable {
     private String stuffEmail_address;
     private String stuffPhone_number;
     @ManyToOne
-    @JoinColumn(name="department_id")
+    @JoinColumn(name="depart_id")
     private Department department;
     private String password;
     private Blob image;
     @OneToMany(mappedBy = "stuff")
-    private List<Diagnosis> diagnosis;
+    private List<Diagnosis> diagnosis = new ArrayList<>();
     // New attribute for Base64-encoded image data
     private String base64Image;
 

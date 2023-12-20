@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
+
 /**
  *
  * @author destin
@@ -27,13 +28,13 @@ public class Inpatients implements Serializable {
     private String inpatient_sickness;
     private String inpatient_amount_paid;
     @ManyToOne
-    @JoinColumn(name="department_id")
+    @JoinColumn(name="dep_id")
     private Department department;
     @ManyToOne
     @JoinColumn(name="room_no")
     private Rooms room;
     private String inpatient_phone_number;
-    private Date inpatient_date_in;
+    private Date inpatient_date_in = new Date();
     @OneToMany(mappedBy = "patient")
     private List<Diagnosis> diagnosis = new ArrayList<>();
 

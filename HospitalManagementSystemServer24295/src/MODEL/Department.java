@@ -23,7 +23,7 @@ public class Department implements Serializable {
     private Integer Id;
     private String dep_id;
     private String dep_name;
-    private Date started_date;
+    private Date started_date = new Date();
     @OneToMany(mappedBy = "department")
     private List<Rooms> room = new ArrayList<>();
     @OneToMany(mappedBy = "department")

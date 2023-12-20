@@ -46,8 +46,8 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hospital_management_system_db?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">destin</property>
     <property name="hibernate.connection.password">Destin378464.</property>
-    <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.show_sql">true</property>
     <mapping class="MODEL.Appointments"/>
     <mapping class="MODEL.Department"/>
     <mapping class="MODEL.Diagnosis"/>

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+
 /**
  *
  * @author destin
@@ -20,7 +21,7 @@ public class Rooms implements Serializable {
     private Integer Id;
     private String room_no;
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "dep_id")
     private Department department;
     @OneToMany(mappedBy = "room")
     private List<Inpatients> patient = new ArrayList<>();
@@ -69,6 +70,5 @@ public class Rooms implements Serializable {
     public void setPatient(List<Inpatients> patient) {
         this.patient = patient;
     }
-    
     
 }

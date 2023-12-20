@@ -16,9 +16,8 @@ import java.util.List;
 public class Rooms implements Serializable {
     private static final long serialVersionUID = 5149641714150001821L;
     private Integer Id;
-    private String room_no;
+    private String room_no;  
     private Department department;
-    private List<Inpatients> patient = new ArrayList<>();
 
     public Rooms() {
     }
@@ -27,7 +26,7 @@ public class Rooms implements Serializable {
         this.room_no = room_no;
     }
 
-    public Rooms(Integer Id, String room_no, Department department) {
+        public Rooms(Integer Id, String room_no, Department department) {
         this.Id = Id;
         this.room_no = room_no;
         this.department = department;
@@ -57,12 +56,6 @@ public class Rooms implements Serializable {
         this.department = department;
     }
 
-    public List<Inpatients> getPatient() {
-        return patient;
-    }
-
-    public void setPatient(List<Inpatients> patient) {
-        this.patient = patient;
-    }
+   
     
 }

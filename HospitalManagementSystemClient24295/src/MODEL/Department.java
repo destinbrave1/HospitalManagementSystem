@@ -20,10 +20,7 @@ public class Department implements Serializable {
     private Integer Id;
     private String dep_id;
     private String dep_name;
-    private Date started_date;
-    private List<Rooms> room = new ArrayList<>();
-    private List<Inpatients> patient = new ArrayList<>();
-    private List<Stuff> stuff = new ArrayList<>();
+    private Date started_date = new Date();
 
     public Department() {
     }
@@ -71,28 +68,6 @@ public class Department implements Serializable {
         this.started_date = started_date;
     }
 
-    public List<Rooms> getRoom() {
-        return room;
-    }
 
-    public void setRoom(List<Rooms> room) {
-        this.room = room;
-    }
-
-    public List<Inpatients> getPatient() {
-        return patient;
-    }
-
-    public void setPatient(List<Inpatients> patient) {
-        this.patient = patient;
-    }
-
-    public List<Stuff> getStuff() {
-        return stuff;
-    }
-
-    public void setStuff(List<Stuff> stuff) {
-        this.stuff = stuff;
-    }
     
 }

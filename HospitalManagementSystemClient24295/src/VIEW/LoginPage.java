@@ -205,51 +205,41 @@ public class LoginPage extends javax.swing.JFrame {
     private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
         // TODO add your handling code here:
            
-           
-            try {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+             try {
+               Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+               StuffInterface stuff = (StuffInterface) registry.lookup("stuffs");
 
-            // Lookup the remote object by its registered name
-             StuffInterface stuff = (StuffInterface)registry.lookup("stuffs");
-            // Perform login check
-            String username = username_loginInput.getText();
-            String password = new String(passwordinpt.getPassword());
-            boolean isValidLogin = stuff.validateUserLogin(username, password);
+               // Perform login check
+               String username = username_loginInput.getText();
+               String password = new String(passwordinpt.getPassword());
+               boolean isValidLogin = stuff.validateUserLogin(username, password);
 
-            if (isValidLogin){
-            
-               if(LoginCombo.getSelectedItem().equals("Doctor") ||
-                    LoginCombo.getSelectedItem().equals("Nurse") ) {
-                JOptionPane.showMessageDialog(this,"Login successful");
-                dispose();
-                DoctorHomepage doctors = new DoctorHomepage();
-                doctors.show();
-                
-                 }
-               
-               else if(isValidLogin ||LoginCombo.getSelectedItem().equals("Pharmacist")){
-                JOptionPane.showMessageDialog(this,"Login successful");
-                dispose();
-                PharmacyHomepage pharmacist = new PharmacyHomepage();
-                pharmacist.show();
-            }
-            else if(isValidLogin ||LoginCombo.getSelectedItem().equals("Receptionist")){
-                JOptionPane.showMessageDialog(this,"Login successful");
-                dispose();
-                ReceptionistHomepage receptionist = new ReceptionistHomepage();
-                receptionist.show();
-            }
-            
-            } 
-            
-            else {
-                JOptionPane.showMessageDialog(this,"login fails","invalid credentials", JOptionPane.ERROR_MESSAGE);
-            
+               if (isValidLogin) {
+                if ("Doctor".equals(LoginCombo.getSelectedItem()) || "Nurse".equals(LoginCombo.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(this, "Login successful");
+                    dispose();
+                    DoctorHomepage doctors = new DoctorHomepage();
+                    doctors.show();
+                } else if ("Pharmacist".equals(LoginCombo.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(this, "Login successful");
+                    dispose();
+                    PharmacyHomepage pharmacist = new PharmacyHomepage();
+                    pharmacist.show();
+                } else if ("Receptionist".equals(LoginCombo.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(this, "Login successful");
+                    dispose();
+                    ReceptionistHomepage receptionist = new ReceptionistHomepage();
+                    receptionist.show();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid user type selected", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Login fails", "Invalid credentials", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
     }//GEN-LAST:event_LoginbtnActionPerformed
 
     /**

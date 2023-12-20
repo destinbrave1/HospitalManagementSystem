@@ -4,19 +4,180 @@
  * and open the template in the editor.
  */
 package VIEW;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import MODEL.Department;
+import MODEL.Inpatients;
+import MODEL.Rooms;
+import SERVICE.DepartmentInterface;
+import SERVICE.InpatientInterface;
+import SERVICE.RoomInterface;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author destin
  */
 public class ReceptionistHomepage extends javax.swing.JFrame {
-
+DefaultTableModel tableModel = new DefaultTableModel();
     /**
      * Creates new form ReceptionistHomepage
      */
     public ReceptionistHomepage() {
         initComponents();
+        AddTableColumn();
+        AddDepartmentToCombo();
+        AddRoomsToCombo();
+        addRowData();
     }
+
+    public void AddTableColumn()
+    {
+        tableModel.addColumn("Id");
+        tableModel.addColumn("National id");
+        tableModel.addColumn("Name");
+        tableModel.addColumn("Date of birth");
+        tableModel.addColumn("Sickness");
+        tableModel.addColumn("Paid");
+        tableModel.addColumn("Department");
+        tableModel.addColumn("Room");
+        tableModel.addColumn("phone no");
+        tableModel.addColumn("Date in");
+        
+        InpatientTable.setModel(tableModel);
+        
+    }
+    public void AddDepartmentToCombo()
+    {
+       
+        department_Combo.removeAllItems();
+        try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
+
+        List<Department> departmentS = intf.allDepartment();
+
+        Iterator iterator = departmentS.iterator();
+        String department = null;
+            while(iterator.hasNext())
+            {
+                Department dep =(Department)iterator.next();
+                
+                    department_Combo.addItem(dep.getDep_name()); 
+                        
+            }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+  }
+    public void AddRoomsToCombo()
+    {
+       
+        Room_Combo.removeAllItems();
+        try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+         RoomInterface intf = (RoomInterface) registry.lookup("rooms");
+
+         List<Rooms> rooms = intf.allRooms();
+
+        Iterator iterator = rooms.iterator();
+       
+            while(iterator.hasNext())
+            {
+                Rooms rm =(Rooms)iterator.next();
+                
+                    Room_Combo.addItem(rm.getRoom_no()); 
+                        
+            }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+  }
+    
+    private void addRowData() {
+    tableModel.setRowCount(0);
+
+    try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+
+        List<Inpatients> inp = intf.allInpatients();
+        String department = null;
+        String room =null;
+        for (Inpatients obj : inp) {
+            if (obj.getDepartment() != null || obj.getRoom() != null) {
+                department = obj.getDepartment() != null ? obj.getDepartment().getDep_name() : "";
+                room = obj.getRoom() != null ? obj.getRoom().getRoom_no() : "";
+            } else {
+                department = "";
+                room = "";
+            }
+            tableModel.addRow(new Object[]{
+                obj.getId(),
+                obj.getPatient_national_id(),
+                obj.getInpatient_name(),
+                obj.getDate_of_birth(),
+                obj.getInpatient_sickness(),
+                obj.getInpatient_amount_paid(),
+                department,
+                room,
+                obj.getInpatient_phone_number(),
+                obj.getInpatient_date_in(),
+            });
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    private Department findDepartmentByName(String depName) {
+    try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        DepartmentInterface depIntf = (DepartmentInterface) registry.lookup("department");
+
+        List<Department> departmentList = depIntf.allDepartment();
+
+        for (Department dep : departmentList) {
+            if (dep.getDep_name().equals(depName)) {
+                return dep;
+            }
+        }
+
+        return null; // Department not found
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null; // Handle the exception accordingly
+    }
+}
+    private Rooms findRoomByName(String roomName) {
+    try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        RoomInterface roomIntf = (RoomInterface) registry.lookup("rooms");
+
+        List<Rooms> roomList = roomIntf.allRooms();
+
+        for (Rooms room : roomList) {
+            if (room.getRoom_no().equals(roomName)) {
+                return room;
+            }
+        }
+
+        return null; // Room not found
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null; // Handle the exception accordingly
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,22 +196,23 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
         idInpt = new javax.swing.JTextField();
         nameInpt = new javax.swing.JTextField();
         AmountINp = new javax.swing.JTextField();
-        dateInpt = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
         phoneINp = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        AdmissionBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        RoomNoInput = new javax.swing.JComboBox<>();
+        Registerbtn = new javax.swing.JButton();
+        Room_Combo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         SicknessInp = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        feverINp = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        DateoFbithINpatientCombo = new com.toedter.calendar.JDateChooser();
+        department_Combo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         ReceiptBtn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         Gobackbtn = new javax.swing.JButton();
         Logoutbtn = new javax.swing.JButton();
+        SAVEBILL = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -86,12 +248,12 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        AdmissionBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        AdmissionBtn.setForeground(new java.awt.Color(219, 23, 23));
-        AdmissionBtn.setText("Admission");
-        AdmissionBtn.addActionListener(new java.awt.event.ActionListener() {
+        Registerbtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        Registerbtn.setForeground(new java.awt.Color(219, 23, 23));
+        Registerbtn.setText("REGISTER");
+        Registerbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdmissionBtnActionPerformed(evt);
+                RegisterbtnActionPerformed(evt);
             }
         });
 
@@ -99,115 +261,119 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AdmissionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AdmissionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(Registerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jLabel1.setText("Date-in");
-
-        RoomNoInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EM101", "EM102", "EM103", "EM104", "EM105", "PP201", "PP202", "PP203", "PP204", "PP205" }));
-        RoomNoInput.addActionListener(new java.awt.event.ActionListener() {
+        Room_Combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RoomNoInputActionPerformed(evt);
+                Room_ComboActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Sickness:");
 
-        jLabel4.setText("Fever degree");
+        jLabel1.setText("Date of birth :");
+
+        jLabel2.setText("Department");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(idInpt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nameInpt, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                    .addComponent(SicknessInp)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(0, 9, Short.MAX_VALUE))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dateInpt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(phoneINp, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                    .addComponent(RoomNoInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(AmountINp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(feverINp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(SicknessInp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(department_Combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idInpt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(phoneINp, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(Room_Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nameInpt, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(idInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SicknessInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(idInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(feverINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17)
+                    .addComponent(nameInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(RoomNoInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel3)
+                    .addComponent(SicknessInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(phoneINp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(dateInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(department_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(Room_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addGap(67, 67, 67)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel10.setBackground(new java.awt.Color(91, 184, 133));
@@ -257,6 +423,14 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
                 .addComponent(Logoutbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        SAVEBILL.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        SAVEBILL.setText("SAVE");
+        SAVEBILL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SAVEBILLActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -264,17 +438,21 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(ReceiptBtn))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(SAVEBILL, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(ReceiptBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(ReceiptBtn)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ReceiptBtn)
+                    .addComponent(SAVEBILL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -393,7 +571,7 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(SeachBtn)
                     .addComponent(SearchInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -454,12 +632,12 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -467,7 +645,7 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
         );
@@ -488,17 +666,99 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
     
     }//GEN-LAST:event_InpatientMenuActionPerformed
 
-    private void AdmissionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissionBtnActionPerformed
+    private void RegisterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterbtnActionPerformed
+             try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+        
+        Inpatients inp = new Inpatients();
+        
+        inp.setPatient_national_id(idInpt.getText());
+        inp.setInpatient_name(nameInpt.getText());
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+         Date selectedDate = DateoFbithINpatientCombo.getDate();
+         String formattedDate = dateFormat.format(selectedDate);
 
+         inp.setDate_of_birth(formattedDate);
+        inp.setInpatient_sickness(SicknessInp.getText());
+        inp.setInpatient_amount_paid(AmountINp.getText());
+       
+        String selectedDepartmentName = String.valueOf(department_Combo.getSelectedItem());
+
+        // Find the Department object by name
+        Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
+
+        if (selectedDepartment != null) {
+            inp.setDepartment(selectedDepartment);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         Object selectedRoom = Room_Combo.getSelectedItem();
+
+        // Find the Room object by name
+        Rooms selectedRoomObject = findRoomByName(String.valueOf(selectedRoom));
+
+        if (selectedRoomObject != null) {
+            inp.setRoom(selectedRoomObject);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+         
+        
+        inp.setInpatient_phone_number(phoneINp.getText());
+        
+        String feedback = intf.RegisterInpatients(inp);
+        if(feedback!=null)
+        {
+            JOptionPane.showMessageDialog(this, feedback);
+        }
+           addRowData();
+             }
+             catch(Exception e)
+             {
+                 e.printStackTrace();
+             }
     
-    }//GEN-LAST:event_AdmissionBtnActionPerformed
+    }//GEN-LAST:event_RegisterbtnActionPerformed
 
-    private void RoomNoInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomNoInputActionPerformed
+    private void Room_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Room_ComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RoomNoInputActionPerformed
+    }//GEN-LAST:event_Room_ComboActionPerformed
 
     private void ReceiptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReceiptBtnActionPerformed
-     
+        Inpatients inp = new Inpatients();
+    if(idInpt.getText().trim().isEmpty() ||
+                nameInpt.getText().trim().isEmpty()||
+                SicknessInp.getText().trim().isEmpty()||
+                AmountINp.getText().trim().isEmpty()||
+                phoneINp.getText().trim().isEmpty()
+                )
+        {
+           JOptionPane.showMessageDialog(this, "Complete all patient information");
+        }
+   
+    else
+    {     
+        BillArea.setText("********************************************************************************\n");
+        BillArea.setText(BillArea.getText() + "\n\t\t* Inpatient fees Receipt * \n\nDate : "+inp.getInpatient_date_in()+"\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+        BillArea.setText(BillArea.getText() + "Inpatient Info \n\n");
+        BillArea.setText(BillArea.getText() + "Id Card no : " + idInpt.getText() + "\n\n");
+        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t Phone : " + phoneINp.getText()+"\n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tAmount paid : " + AmountINp.getText() + "Frw\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tSignature: \n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+    }
+        
     }//GEN-LAST:event_ReceiptBtnActionPerformed
 
     private void GobackbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GobackbtnActionPerformed
@@ -519,12 +779,65 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
     }//GEN-LAST:event_InpatientTableMouseClicked
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed
+         try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+
+        Inpatients searchCriteria = new Inpatients();
+        searchCriteria.setPatient_national_id(SearchInp.getText());
+
+        Inpatients foundInpatient = intf.getinpatientsById(searchCriteria);
+
+        if (foundInpatient != null) {
+            
+            idInpt.setText(foundInpatient.getPatient_national_id());
+            nameInpt.setText(foundInpatient.getInpatient_name());
+           
+        } else {
+            JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
       
     }//GEN-LAST:event_SeachBtnActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
       
     }//GEN-LAST:event_UpdateBtnActionPerformed
+
+    private void SAVEBILLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SAVEBILLActionPerformed
+      try {
+        if (BillArea.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "BillArea is empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+       
+            String chosenFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+            if (!chosenFilePath.toLowerCase().endsWith(".csv")) {
+                chosenFilePath += ".csv";
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(chosenFilePath))) {
+               
+                writer.write("Bill Data\n");
+
+                writer.write(BillArea.getText());
+            }
+
+            JOptionPane.showMessageDialog(this, "Bill data saved to " + chosenFilePath, "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error saving bill data to CSV", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_SAVEBILLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -562,32 +875,33 @@ public class ReceptionistHomepage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AdmissionBtn;
     private javax.swing.JTextField AmountINp;
     private javax.swing.JTextArea BillArea;
+    private com.toedter.calendar.JDateChooser DateoFbithINpatientCombo;
     private javax.swing.JMenuItem DischargedMenu;
     private javax.swing.JButton Gobackbtn;
     private javax.swing.JMenuItem InpatientMenu;
     private javax.swing.JTable InpatientTable;
     private javax.swing.JButton Logoutbtn;
     private javax.swing.JButton ReceiptBtn;
-    private javax.swing.JComboBox<String> RoomNoInput;
+    private javax.swing.JButton Registerbtn;
+    private javax.swing.JComboBox<String> Room_Combo;
+    private javax.swing.JButton SAVEBILL;
     private javax.swing.JButton SeachBtn;
     private javax.swing.JTextField SearchInp;
     private javax.swing.JTextField SicknessInp;
     private javax.swing.JMenuItem TransferedMenu;
     private javax.swing.JButton UpdateBtn;
-    private com.toedter.calendar.JDateChooser dateInpt;
-    private javax.swing.JTextField feverINp;
+    private javax.swing.JComboBox<String> department_Combo;
     private javax.swing.JTextField idInpt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;

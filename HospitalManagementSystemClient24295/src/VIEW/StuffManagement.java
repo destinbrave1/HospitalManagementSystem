@@ -43,7 +43,6 @@ public class StuffManagement extends javax.swing.JFrame {
         initComponents();
         addFunctionItems();
         AddDepartmentToCombo();
-//        addDepartmentItems();
         AddTableColumn();
         addRowData();
     }
@@ -56,26 +55,7 @@ public class StuffManagement extends javax.swing.JFrame {
         FunctionCombo_stuff.addItem(Functions.Pharmacist.toString());
         FunctionCombo_stuff.addItem(Functions.Admin.toString());
     }
-//     private void addDepartmentItems()
-//    {
-//        department_Combo.removeAllItems();
-//        department_Combo.addItem(Departments.Emergency.toString());
-//        department_Combo.addItem(Departments.Cardiology.toString());
-//        department_Combo.addItem(Departments.Administration.toString());
-//        department_Combo.addItem(Departments.Pharmacy.toString());
-//        department_Combo.addItem(Departments.Anesthesiology.toString());
-//        department_Combo.addItem(Departments.Internal_Medicine.toString());
-//        
-//        department_Combo.addItem(Departments.Neurology.toString());
-//        department_Combo.addItem(Departments.Nutrition_and_Dietetics.toString());
-//        department_Combo.addItem(Departments.Obstetrics_and_Gynecology.toString());
-//        department_Combo.addItem(Departments.Oncology.toString());
-//        
-//        department_Combo.addItem(Departments.Orthopedics.toString());
-//        department_Combo.addItem(Departments.Pediatrics.toString());
-//        department_Combo.addItem(Departments.Radiology.toString());
-//        
-//    }
+
     public void AddDepartmentToCombo()
     {
         department_Combo.removeAllItems();
@@ -97,7 +77,8 @@ public class StuffManagement extends javax.swing.JFrame {
         e.printStackTrace();
     }
   }
-           
+     
+  
     public void AddTableColumn()
     {
         tableModel.addColumn("Id");
@@ -113,32 +94,57 @@ public class StuffManagement extends javax.swing.JFrame {
         
     }
     
-    private void addRowData(){
-        tableModel.setRowCount(0);
+   private void addRowData() {
+    tableModel.setRowCount(0);
 
     try {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
         StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
 
         List<Stuff> stuffs = intf.allStuff();
-
+        String department = null;
         for (Stuff stf : stuffs) {
+            if (stf.getDepartment() != null) {
+                department = stf.getDepartment().getDep_name();
+            } else {
+                department = "";
+            }
             tableModel.addRow(new Object[]{
-                stf.getId(),
-                stf.getStuffId(),
-                stf.getStuffUsername(),
-                stf.getStuffEmail_address(),
-                stf.getStuffPhone_number(),
-                stf.getDepartment(),
-                stf.getPassword(),
-                stf.getImage(),
-                
+                    stf.getId(),
+                    stf.getStuffId(),
+                    stf.getStuffUsername(),
+                    stf.getStuffEmail_address(),
+                    stf.getStuffPhone_number(),
+                    department,
+                    stf.getPassword(),
+                    stf.getBase64Image(),
             });
         }
     } catch (Exception e) {
         e.printStackTrace();
+        System.err.println("Error in addRowData: " + e.getMessage());
     }
-  }
+}
+
+    private Department findDepartmentByName(String departmentName) {
+    try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
+
+        List<Department> departmentList = intf.allDepartment();
+
+        for (Department department : departmentList) {
+            if (department.getDep_name().equals(departmentName)) {
+                return department;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return null; // Return null if the department is not found or an error occurs
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,10 +177,10 @@ public class StuffManagement extends javax.swing.JFrame {
         usernameInp_stuff = new javax.swing.JTextField();
         email_stuff = new javax.swing.JTextField();
         Phone_stuff = new javax.swing.JTextField();
-        RepeatPassword_stuff = new javax.swing.JTextField();
-        password_stuff = new javax.swing.JTextField();
         FunctionCombo_stuff = new javax.swing.JComboBox<>();
         department_Combo = new javax.swing.JComboBox<>();
+        password_stuff = new javax.swing.JPasswordField();
+        RepeatPassword_stuff = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
         Searchifinp = new javax.swing.JTextField();
         searchBtn_stuff = new javax.swing.JButton();
@@ -324,12 +330,12 @@ public class StuffManagement extends javax.swing.JFrame {
                             .addComponent(jLabel9))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RepeatPassword_stuff)
                             .addComponent(National_id_stuff)
                             .addComponent(Phone_stuff)
-                            .addComponent(password_stuff)
-                            .addComponent(RepeatPassword_stuff)
-                            .addComponent(FunctionCombo_stuff, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(department_Combo, 0, 260, Short.MAX_VALUE))))
+                            .addComponent(FunctionCombo_stuff, 0, 260, Short.MAX_VALUE)
+                            .addComponent(department_Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(password_stuff))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -361,13 +367,13 @@ public class StuffManagement extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(password_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addComponent(password_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(RepeatPassword_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                    .addComponent(RepeatPassword_stuff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(71, 71, 71))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -653,9 +659,9 @@ public class StuffManagement extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "Complete all input fields");
         }
-        else if(password_stuff.getText().trim().length()!=5)
+        else if(password_stuff.getText().trim().length()<=5)
         {
-          JOptionPane.showMessageDialog(this, "password should be 5 characters","password format",JOptionPane.ERROR_MESSAGE);   
+          JOptionPane.showMessageDialog(this, "password should be 5 characters or more","password format",JOptionPane.ERROR_MESSAGE);   
         }
        else
         {
@@ -673,8 +679,16 @@ public class StuffManagement extends javax.swing.JFrame {
                     stuff.setStuffUsername(usernameInp_stuff.getText());
                     stuff.setStuffPhone_number(Phone_stuff.getText());
                     stuff.setStuffEmail_address(email_stuff.getText());
-                    Department department = new Department();
-                    stuff.setDepartment((Department)department_Combo.getSelectedItem());
+                    
+                   String selectedDepartmentName = (String) department_Combo.getSelectedItem();
+                   Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
+
+                if (selectedDepartment != null) {
+                    stuff.setDepartment(selectedDepartment);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                     
                      try {
                         ImageIcon imageIcon = (ImageIcon) ImageP.getIcon();
@@ -962,7 +976,7 @@ public class StuffManagement extends javax.swing.JFrame {
     private javax.swing.JLabel ImageP;
     private javax.swing.JTextField National_id_stuff;
     private javax.swing.JTextField Phone_stuff;
-    private javax.swing.JTextField RepeatPassword_stuff;
+    private javax.swing.JPasswordField RepeatPassword_stuff;
     private javax.swing.JTextField Searchifinp;
     private javax.swing.JTable Table_stuffs;
     private javax.swing.JButton UpdateUserbtn;
@@ -988,7 +1002,7 @@ public class StuffManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField password_stuff;
+    private javax.swing.JPasswordField password_stuff;
     private javax.swing.JButton searchBtn_stuff;
     private javax.swing.JTextField usernameInp_stuff;
     // End of variables declaration//GEN-END:variables

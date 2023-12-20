@@ -18,4 +18,5 @@ public interface DepartmentInterface extends Remote{
     public String deleteDepartment(Department department) throws RemoteException;
     public List<Department> allDepartment()throws RemoteException;
     public Department getdepartmentById(Department department) throws RemoteException;
+    public Department fetchDepartmentByName(String departmentName) throws RemoteException;
 }
