@@ -55,7 +55,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
     tableModel.setRowCount(0);
 
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         RoomInterface intf = (RoomInterface) registry.lookup("rooms");
 
         List<Rooms> rooms = intf.allRooms();
@@ -89,7 +89,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
     tModel.setRowCount(0);
 
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> dobject = intf.allDepartment();
@@ -117,7 +117,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
        
         department_Combo.removeAllItems();
         try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> departmentS = intf.allDepartment();
@@ -632,7 +632,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
         }
         else{
              try {
-                Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+                Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
                 DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
                 Department dep = new Department();
@@ -660,7 +660,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
 
     private void RegisterRoombtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterRoombtnActionPerformed
          try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         RoomInterface intf = (RoomInterface) registry.lookup("rooms");
 
         Rooms rm = new Rooms();

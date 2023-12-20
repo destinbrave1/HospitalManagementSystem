@@ -206,7 +206,7 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
            
              try {
-               Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+               Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
                StuffInterface stuff = (StuffInterface) registry.lookup("stuffs");
 
                // Perform login check

@@ -66,15 +66,27 @@ public class DaoInpatients {
         }
         return null;
     }
-    public Inpatients searchInpatients(Inpatients object){
+       public Inpatients SearchInpatients(Inpatients object)
+    {
         try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Inpatients theInpatients = (Inpatients)ss.get(Inpatients.class, object.getPatient_national_id());
-            ss.close();
-            return theInpatients;
-        }catch(Exception ex){
-            ex.printStackTrace();
+            
+       Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Inpatients> patients = ss.createQuery("select patients from Inpatients patients where "
+               + "patients.patient_national_id ='"+object.getPatient_national_id()+"'").list();
+       ss.close();
+       if(patients!=null)
+       {
+          return patients.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
     }
+    
+
 }

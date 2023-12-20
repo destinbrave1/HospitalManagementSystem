@@ -43,7 +43,7 @@ public class InpatientImpl extends UnicastRemoteObject implements InpatientInter
 
     @Override
     public Inpatients getinpatientsById(Inpatients inpatients) throws RemoteException {
-        return dao.searchInpatients(inpatients);
+        return dao.SearchInpatients(inpatients);
     }
     
     

@@ -57,7 +57,7 @@ public class Server {
             Server server = new Server();
             System.setProperty("java.rmi.server.hostname", "127.0.0.1");
            
-            Registry registry = LocateRegistry.createRegistry(5000);
+            Registry registry = LocateRegistry.createRegistry(6000);
             registry.rebind("appointment", server.appointment);
             registry.rebind("discharge", server.discharge);
         
@@ -71,7 +71,7 @@ public class Server {
             registry.rebind("department", server.departmentsimpl);
             registry.rebind("diagnosis", server.diagnosis);
             
-            System.out.println("the Server is running on port 5000");
+            System.out.println("the Server is running on port 6000");
         }
         catch(Exception e)
         {

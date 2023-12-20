@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ReceptionistHomepage extends javax.swing.JFrame {
 DefaultTableModel tableModel = new DefaultTableModel();
+ private int id =0;
     /**
      * Creates new form ReceptionistHomepage
      */
@@ -61,7 +62,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
        
         department_Combo.removeAllItems();
         try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> departmentS = intf.allDepartment();
@@ -84,7 +85,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
        
         Room_Combo.removeAllItems();
         try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
          RoomInterface intf = (RoomInterface) registry.lookup("rooms");
 
          List<Rooms> rooms = intf.allRooms();
@@ -107,7 +108,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
     tableModel.setRowCount(0);
 
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
 
         List<Inpatients> inp = intf.allInpatients();
@@ -141,7 +142,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
 }
     private Department findDepartmentByName(String depName) {
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface depIntf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> departmentList = depIntf.allDepartment();
@@ -160,7 +161,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
 }
     private Rooms findRoomByName(String roomName) {
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         RoomInterface roomIntf = (RoomInterface) registry.lookup("rooms");
 
         List<Rooms> roomList = roomIntf.allRooms();
@@ -204,15 +205,13 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jLabel3 = new javax.swing.JLabel();
         SicknessInp = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        DateoFbithINpatientCombo = new com.toedter.calendar.JDateChooser();
         department_Combo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        DateoFbithINpatientCombo = new com.toedter.calendar.JDateChooser();
         jPanel10 = new javax.swing.JPanel();
         ReceiptBtn = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        Gobackbtn = new javax.swing.JButton();
-        Logoutbtn = new javax.swing.JButton();
         SAVEBILL = new javax.swing.JButton();
+        Logoutbtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -227,9 +226,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
         TransferedMenu = new javax.swing.JMenuItem();
-        DischargedMenu = new javax.swing.JMenuItem();
-        InpatientMenu = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -295,25 +291,25 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 9, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(SicknessInp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(department_Combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(0, 27, Short.MAX_VALUE)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(SicknessInp)
+                                    .addComponent(department_Combo, 0, 125, Short.MAX_VALUE)
+                                    .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idInpt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(idInpt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
@@ -344,13 +340,14 @@ DefaultTableModel tableModel = new DefaultTableModel();
                     .addComponent(nameInpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel1)))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DateoFbithINpatientCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(SicknessInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
@@ -372,8 +369,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addGap(67, 67, 67)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel10.setBackground(new java.awt.Color(91, 184, 133));
@@ -387,14 +385,11 @@ DefaultTableModel tableModel = new DefaultTableModel();
             }
         });
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        Gobackbtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        Gobackbtn.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/back.resized.png")); // NOI18N
-        Gobackbtn.setText("GO BACK");
-        Gobackbtn.addActionListener(new java.awt.event.ActionListener() {
+        SAVEBILL.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        SAVEBILL.setText("SAVE");
+        SAVEBILL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GobackbtnActionPerformed(evt);
+                SAVEBILLActionPerformed(evt);
             }
         });
 
@@ -407,41 +402,17 @@ DefaultTableModel tableModel = new DefaultTableModel();
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(Gobackbtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(Logoutbtn))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(Gobackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Logoutbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        SAVEBILL.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        SAVEBILL.setText("SAVE");
-        SAVEBILL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SAVEBILLActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
                         .addComponent(SAVEBILL, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
                         .addComponent(ReceiptBtn)))
@@ -453,9 +424,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ReceiptBtn)
                     .addComponent(SAVEBILL))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(75, 158, 116));
@@ -560,50 +531,31 @@ DefaultTableModel tableModel = new DefaultTableModel();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(SearchInp, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(SeachBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(53, 53, 53))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SeachBtn)
-                    .addComponent(SearchInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SearchInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SeachBtn))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jMenu7.setText("Patients");
+        jMenu7.setText("Checking");
 
-        TransferedMenu.setText("Transfered");
+        TransferedMenu.setText("Appointments");
         TransferedMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransferedMenuActionPerformed(evt);
             }
         });
         jMenu7.add(TransferedMenu);
-
-        DischargedMenu.setText("Discharged");
-        DischargedMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DischargedMenuActionPerformed(evt);
-            }
-        });
-        jMenu7.add(DischargedMenu);
-
-        InpatientMenu.setText("Inpatients");
-        InpatientMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InpatientMenuActionPerformed(evt);
-            }
-        });
-        jMenu7.add(InpatientMenu);
-
-        jMenuItem1.setText("Diagnosis");
-        jMenu7.add(jMenuItem1);
 
         jMenuBar1.add(jMenu7);
 
@@ -646,29 +598,16 @@ DefaultTableModel tableModel = new DefaultTableModel();
                                 .addGap(16, 16, 16)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TransferedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferedMenuActionPerformed
-
-      
-    }//GEN-LAST:event_TransferedMenuActionPerformed
-
-    private void DischargedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DischargedMenuActionPerformed
-       
-    }//GEN-LAST:event_DischargedMenuActionPerformed
-
-    private void InpatientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InpatientMenuActionPerformed
-    
-    }//GEN-LAST:event_InpatientMenuActionPerformed
-
     private void RegisterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterbtnActionPerformed
-             try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+      try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
         
         Inpatients inp = new Inpatients();
@@ -680,7 +619,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
          Date selectedDate = DateoFbithINpatientCombo.getDate();
          String formattedDate = dateFormat.format(selectedDate);
 
-         inp.setDate_of_birth(formattedDate);
+        inp.setDate_of_birth(formattedDate);
         inp.setInpatient_sickness(SicknessInp.getText());
         inp.setInpatient_amount_paid(AmountINp.getText());
        
@@ -761,12 +700,11 @@ DefaultTableModel tableModel = new DefaultTableModel();
         
     }//GEN-LAST:event_ReceiptBtnActionPerformed
 
-    private void GobackbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GobackbtnActionPerformed
-      
-    }//GEN-LAST:event_GobackbtnActionPerformed
-
     private void LogoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutbtnActionPerformed
-      
+           LoginPage login = new LoginPage();
+           dispose();
+           login.show();
+           
     }//GEN-LAST:event_LogoutbtnActionPerformed
 
     private void BillAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillAreaMouseClicked
@@ -779,19 +717,23 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }//GEN-LAST:event_InpatientTableMouseClicked
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed
-         try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+          try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
 
         Inpatients searchCriteria = new Inpatients();
         searchCriteria.setPatient_national_id(SearchInp.getText());
 
         Inpatients foundInpatient = intf.getinpatientsById(searchCriteria);
-
+        
         if (foundInpatient != null) {
             
-            idInpt.setText(foundInpatient.getPatient_national_id());
+            idInpt.setText(SearchInp.getText());
             nameInpt.setText(foundInpatient.getInpatient_name());
+            AmountINp.setText(foundInpatient.getInpatient_amount_paid());
+            phoneINp.setText(foundInpatient.getInpatient_phone_number());
+            SicknessInp.setText(foundInpatient.getInpatient_sickness());
+            id = foundInpatient.getId();
            
         } else {
             JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
@@ -800,10 +742,69 @@ DefaultTableModel tableModel = new DefaultTableModel();
         e.printStackTrace();
     }
       
+      
     }//GEN-LAST:event_SeachBtnActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-      
+       if(id!=0)
+       {
+            if(idInpt.getText().trim().isEmpty()||nameInpt.getText().trim().isEmpty()||
+                SicknessInp.getText().trim().isEmpty()||DateoFbithINpatientCombo.getDate()==null||
+                phoneINp.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Complete all fields","Empty fields",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(SearchInp.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Search user to update","Search",JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+          try {
+             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+             InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+             Date selectedDate = DateoFbithINpatientCombo.getDate();
+             
+             String UpdatedDate = dateFormat.format(selectedDate);
+             String updatedName = nameInpt.getText();
+             String updatedAmount = AmountINp.getText();
+             String updatedPhone = phoneINp.getText();
+             String updatedSickness = SicknessInp.getText();
+             String selectDepartment = String.valueOf(department_Combo.getSelectedItem());
+             Department updatedDepartment = findDepartmentByName(selectDepartment);
+             
+             Object selectedRoom = Room_Combo.getSelectedItem();
+
+             Rooms updatedRoom = findRoomByName(String.valueOf(selectedRoom));
+            
+             Inpatients updatedInpatient = new Inpatients();
+             
+             updatedInpatient.setId(id);
+             updatedInpatient.setPatient_national_id(SearchInp.getText());
+             updatedInpatient.setInpatient_name(updatedName);
+             updatedInpatient.setInpatient_amount_paid(updatedAmount);
+             updatedInpatient.setInpatient_phone_number(updatedPhone);
+             updatedInpatient.setInpatient_sickness(updatedSickness);
+             updatedInpatient.setDate_of_birth(UpdatedDate);
+             updatedInpatient.setDepartment(updatedDepartment);
+             updatedInpatient.setRoom(updatedRoom);
+             // Invoke the update operation
+             String updateResult = intf.updateInpatients(updatedInpatient);
+             if(updateResult!=null)
+             {
+                 JOptionPane.showMessageDialog(this, updateResult, "Success", JOptionPane.INFORMATION_MESSAGE);
+                 id =0;
+                 addRowData();
+             }
+             
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+        }
+       }
+       
+       
     }//GEN-LAST:event_UpdateBtnActionPerformed
 
     private void SAVEBILLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SAVEBILLActionPerformed
@@ -838,6 +839,10 @@ DefaultTableModel tableModel = new DefaultTableModel();
         JOptionPane.showMessageDialog(this, "Error saving bill data to CSV", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_SAVEBILLActionPerformed
+
+    private void TransferedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferedMenuActionPerformed
+
+    }//GEN-LAST:event_TransferedMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -878,9 +883,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JTextField AmountINp;
     private javax.swing.JTextArea BillArea;
     private com.toedter.calendar.JDateChooser DateoFbithINpatientCombo;
-    private javax.swing.JMenuItem DischargedMenu;
-    private javax.swing.JButton Gobackbtn;
-    private javax.swing.JMenuItem InpatientMenu;
     private javax.swing.JTable InpatientTable;
     private javax.swing.JButton Logoutbtn;
     private javax.swing.JButton ReceiptBtn;
@@ -905,12 +907,10 @@ DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;

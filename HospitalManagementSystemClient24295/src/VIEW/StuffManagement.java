@@ -60,7 +60,7 @@ public class StuffManagement extends javax.swing.JFrame {
     {
         department_Combo.removeAllItems();
          try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> department = intf.allDepartment();
@@ -98,7 +98,7 @@ public class StuffManagement extends javax.swing.JFrame {
     tableModel.setRowCount(0);
 
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
 
         List<Stuff> stuffs = intf.allStuff();
@@ -128,7 +128,7 @@ public class StuffManagement extends javax.swing.JFrame {
 
     private Department findDepartmentByName(String departmentName) {
     try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         DepartmentInterface intf = (DepartmentInterface) registry.lookup("department");
 
         List<Department> departmentList = intf.allDepartment();
@@ -671,7 +671,7 @@ public class StuffManagement extends javax.swing.JFrame {
              { 
                       
                 try{
-                    Registry registry = LocateRegistry.getRegistry("127.0.0.1",5000);
+                    Registry registry = LocateRegistry.getRegistry("127.0.0.1",6000);
                     StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
                     Stuff stuff = new Stuff();
                     
@@ -783,7 +783,7 @@ public class StuffManagement extends javax.swing.JFrame {
              { 
                       
                 try{
-                    Registry registry = LocateRegistry.getRegistry("127.0.0.1",5000);
+                    Registry registry = LocateRegistry.getRegistry("127.0.0.1",6000);
                     StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
                     Stuff stuff = new Stuff();
                     
@@ -842,7 +842,7 @@ public class StuffManagement extends javax.swing.JFrame {
     private void DeleteUserinputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteUserinputActionPerformed
        
         try {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
            StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
            
             Stuff object = new Stuff();
@@ -878,7 +878,7 @@ public class StuffManagement extends javax.swing.JFrame {
     private void searchBtn_stuffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtn_stuffActionPerformed
          
         try {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 5000);
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
              StuffInterface intf = (StuffInterface) registry.lookup("stuffs");
            
             Stuff object = new Stuff();
