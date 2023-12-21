@@ -35,7 +35,7 @@ public class Inpatients implements Serializable {
     private Rooms room;
     private String inpatient_phone_number;
     private Date inpatient_date_in = new Date();
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Diagnosis> diagnosis = new ArrayList<>();
 
     public Inpatients() {

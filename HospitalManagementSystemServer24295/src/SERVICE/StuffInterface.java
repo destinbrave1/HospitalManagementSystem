@@ -19,5 +19,5 @@ public interface StuffInterface extends Remote {
     public String deleteStuff(Stuff userAccounts) throws RemoteException;
     public List<Stuff> allStuff()throws RemoteException;
     public Stuff getStuffsById(Stuff userAccounts) throws RemoteException;
-    boolean validateUserLogin(String username, String password) throws RemoteException;
+    Stuff validateUserLogin(String username, String password, String function) throws RemoteException;
 }

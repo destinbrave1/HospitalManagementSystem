@@ -1,10 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+   COMMENTING TO CHECK FOR GITHUB CHANGES
  */
+
 package VIEW;
 
+import MODEL.Stuff;
 import SERVICE.StuffInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -25,12 +25,12 @@ public class LoginPage extends javax.swing.JFrame {
     }
     private void addFunctionItems()
     {
-        LoginCombo.removeAllItems();
-        LoginCombo.addItem(Functions.Doctor.toString());
-        LoginCombo.addItem(Functions.Nurse.toString());
-        LoginCombo.addItem(Functions.Receptionist.toString());
-        LoginCombo.addItem(Functions.Pharmacist.toString());
-        LoginCombo.addItem(Functions.Admin.toString());
+        FunctionCombo.removeAllItems();
+        FunctionCombo.addItem(Functions.Doctor.toString());
+        FunctionCombo.addItem(Functions.Nurse.toString());
+        FunctionCombo.addItem(Functions.Receptionist.toString());
+        FunctionCombo.addItem(Functions.Pharmacist.toString());
+        FunctionCombo.addItem(Functions.Admin.toString());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +53,7 @@ public class LoginPage extends javax.swing.JFrame {
         ClearBtn = new javax.swing.JButton();
         Loginbtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        LoginCombo = new javax.swing.JComboBox<>();
+        FunctionCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(110, 155, 115));
@@ -138,7 +138,7 @@ public class LoginPage extends javax.swing.JFrame {
                                         .addComponent(jLabel2))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(LoginCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(FunctionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(passwordinpt, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +181,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(LoginCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FunctionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(157, 157, 157)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Loginbtn)
@@ -205,41 +205,47 @@ public class LoginPage extends javax.swing.JFrame {
     private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
         // TODO add your handling code here:
            
-             try {
-               Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
-               StuffInterface stuff = (StuffInterface) registry.lookup("stuffs");
+            try {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+        StuffInterface stuff = (StuffInterface) registry.lookup("stuffs");
 
-               // Perform login check
-               String username = username_loginInput.getText();
-               String password = new String(passwordinpt.getPassword());
-               boolean isValidLogin = stuff.validateUserLogin(username, password);
+        String username = username_loginInput.getText();
+        String password = new String(passwordinpt.getPassword());
+        String selectedFunction = FunctionCombo.getSelectedItem().toString();
 
-               if (isValidLogin) {
-                if ("Doctor".equals(LoginCombo.getSelectedItem()) || "Nurse".equals(LoginCombo.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(this, "Login successful");
-                    dispose();
-                    DoctorHomepage doctors = new DoctorHomepage();
-                    doctors.show();
-                } else if ("Pharmacist".equals(LoginCombo.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(this, "Login successful");
-                    dispose();
-                    PharmacyHomepage pharmacist = new PharmacyHomepage();
-                    pharmacist.show();
-                } else if ("Receptionist".equals(LoginCombo.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(this, "Login successful");
-                    dispose();
-                    ReceptionistHomepage receptionist = new ReceptionistHomepage();
-                    receptionist.show();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid user type selected", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+  
+        Stuff user = stuff.validateUserLogin(username, password, selectedFunction);
+
+        if (user != null) {
+      
+            JOptionPane.showMessageDialog(this, "Login successful");
+
+            if ("Doctor".equals(user.getStuffFunction()) || "Nurse".equals(user.getStuffFunction())) {
+                dispose();
+                DoctorHomepage doctors = new DoctorHomepage();
+                doctors.show();
+            } else if ("Pharmacist".equals(user.getStuffFunction())) {
+                dispose();
+                PharmacyHomepage pharmacist = new PharmacyHomepage();
+                pharmacist.show();
+            } else if ("Receptionist".equals(user.getStuffFunction())) {
+                dispose();
+                ReceptionistHomepage receptionist = new ReceptionistHomepage();
+                receptionist.show();
+            } else if ("Admin".equals(user.getStuffFunction())) {
+                dispose();
+                AdminHomePage admin = new AdminHomePage();
+                admin.show();
             } else {
-                JOptionPane.showMessageDialog(this, "Login fails", "Invalid credentials", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid user type selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Login fails", "Invalid credentials", JOptionPane.ERROR_MESSAGE);
+        }
 
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_LoginbtnActionPerformed
 
     /**
@@ -279,7 +285,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ClearBtn;
-    private javax.swing.JComboBox<String> LoginCombo;
+    private javax.swing.JComboBox<String> FunctionCombo;
     private javax.swing.JButton Loginbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -58,46 +58,59 @@ public class DaoStuff {
     public List<Stuff> allStuffs(){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
-            List<Stuff> patients = ss.createQuery("select theStuff from Stuff theStuff").list();
+            List<Stuff> stuffs = ss.createQuery("select theStuff from Stuff theStuff").list();
             ss.close();
-            return patients;
+            return stuffs;
         }catch(Exception ex){
             ex.printStackTrace();
         }
         return null;
     }
     public Stuff searchStuff(Stuff object){
-        try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Stuff theStuff = (Stuff)ss.get(Stuff.class, object.getStuffId());
-            ss.close();
-            return theStuff;
-        }catch(Exception ex){
-            ex.printStackTrace();
+         try{
+        Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Stuff> stuffs = ss.createQuery("select stuffs from Stuff stuffs where "
+               + "stuffs.stuffId ='"+object.getStuffId()+"'").list();
+       ss.close();
+       if(stuffs!=null)
+       {
+          return stuffs.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
     }
     
-    public boolean validateUserLogin(String username, String password) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
+    public Stuff validateUserLogin(String username, String password, String theFunction) {
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
 
-            String hql = "FROM Stuff WHERE username = :username AND password = :password";
-            Query query = session.createQuery(hql);
-            query.setParameter("username", username);
-            query.setParameter("password", password);
+        String hql = "FROM Stuff WHERE stuffUsername = :username AND password = :password";
+        Query query = session.createQuery(hql);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
 
-            Stuff user = (Stuff) query.uniqueResult();
+        Stuff user = (Stuff) query.uniqueResult();
 
-            transaction.commit();
-            session.close();
+        transaction.commit();
+        session.close();
 
-            return user != null;
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        if (user != null && theFunction.equals(user.getStuffFunction())) {
+            return user; // Both username/password are correct, and the function matches.
+        } else {
+            return null; // Either username/password are incorrect, or the function doesn't match.
         }
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        return null;
     }
+}
+
 }

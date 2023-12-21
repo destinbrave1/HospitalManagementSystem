@@ -23,11 +23,11 @@ public class Rooms implements Serializable {
     @ManyToOne
     @JoinColumn(name = "dep_id")
     private Department department;
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Inpatients> patient = new ArrayList<>();
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Appointments> appointments = new ArrayList<>();
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Discharged> discharge = new ArrayList<>();
 
     public List<Discharged> getDischarge() {

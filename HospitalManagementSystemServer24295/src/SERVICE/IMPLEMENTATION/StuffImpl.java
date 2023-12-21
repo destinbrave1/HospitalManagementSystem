@@ -47,9 +47,13 @@ public class StuffImpl extends UnicastRemoteObject implements StuffInterface{
     }
 
     @Override
-    public boolean validateUserLogin(String username, String password) throws RemoteException {
-       return dao.validateUserLogin(username, password);
+    public Stuff validateUserLogin(String username, String password, String function) throws RemoteException {
+        return dao.validateUserLogin(username, password, function);
     }
+
+  
+
+
   
     
 }

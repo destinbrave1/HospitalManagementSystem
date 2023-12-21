@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MODEL;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-
-/**
- *
- * @author destin
- */
 @Entity
 public class Stuff implements Serializable {
     private static final long serialVersionUID = 5149641714150001821L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,15 +16,17 @@ public class Stuff implements Serializable {
     private String stuffUsername;
     private String stuffEmail_address;
     private String stuffPhone_number;
+
     @ManyToOne
     @JoinColumn(name="depart_id")
     private Department department;
+    private String stuffFunction;
     private String password;
-    private Blob image;
-    @OneToMany(mappedBy = "stuff")
-    private List<Diagnosis> diagnosis = new ArrayList<>();
-    // New attribute for Base64-encoded image data
-    private String base64Image;
+    @Column(name = "image", columnDefinition = "LONGBLOB", length = Integer.MAX_VALUE)
+    private byte[] image;
+
+    @OneToMany(mappedBy = "stuff", cascade = CascadeType.ALL)
+    private transient List<Diagnosis> diagnosis = new ArrayList<>();
 
     public Stuff() {
     }
@@ -43,7 +35,7 @@ public class Stuff implements Serializable {
         this.stuffId = stuffId;
     }
 
-    public Stuff(Integer id, String stuffId, String stuffUsername, String stuffEmail_address, String stuffPhone_number, Department department, String password, Blob image, List<Diagnosis> diagnosis, String base64Image) {
+    public Stuff(Integer id, String stuffId, String stuffUsername, String stuffEmail_address, String stuffPhone_number, Department department, String password, byte[] image) {
         this.id = id;
         this.stuffId = stuffId;
         this.stuffUsername = stuffUsername;
@@ -52,8 +44,6 @@ public class Stuff implements Serializable {
         this.department = department;
         this.password = password;
         this.image = image;
-        this.diagnosis = diagnosis;
-        this.base64Image = base64Image;
     }
 
     public Integer getId() {
@@ -112,11 +102,11 @@ public class Stuff implements Serializable {
         this.password = password;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -128,13 +118,13 @@ public class Stuff implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public String getBase64Image() {
-        return base64Image;
+    public String getStuffFunction() {
+        return stuffFunction;
     }
 
-    public void setBase64Image(String base64Image) {
-        this.base64Image = base64Image;
+    public void setStuffFunction(String stuffFunction) {
+        this.stuffFunction = stuffFunction;
     }
 
-   
+    
 }

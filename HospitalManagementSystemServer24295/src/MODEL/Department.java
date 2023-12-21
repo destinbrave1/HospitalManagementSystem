@@ -25,15 +25,15 @@ public class Department implements Serializable {
     @Column(name = "dep_name", length = 255)
     private String dep_name;
     private Date started_date = new Date();
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Rooms> room = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Inpatients> patient = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Stuff> stuff = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Appointments> appointments = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Discharged> discharge = new ArrayList<>();
     
     public List<Appointments> getAppointments() {
