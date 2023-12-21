@@ -10,10 +10,12 @@ import MODEL.Department;
 import MODEL.Discharged;
 import MODEL.Appointments;
 import MODEL.Rooms;
+import MODEL.Transfered;
 import SERVICE.DepartmentInterface;
 import SERVICE.DischargedInterface;
 import SERVICE.AppointmentsInterface;
 import SERVICE.RoomInterface;
+import SERVICE.TransferedInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
@@ -627,10 +629,95 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }//GEN-LAST:event_CUREbtnActionPerformed
 
     private void TRANSFERBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TRANSFERBTNActionPerformed
-        // TODO add your handling code here:
-        //        dispose();
-        //        Hospital_home_page home = new Hospital_home_page();
-        //        home.show();
+       if(id!=0)
+        {
+          try {
+            Registry registryAppointment = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            AppointmentsInterface intf = (AppointmentsInterface)registryAppointment.lookup("appointment");
+            
+            Registry registryTransfered = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            TransferedInterface intfs = (TransferedInterface)registryTransfered.lookup("transfered");
+            
+            Transfered inp = new Transfered();
+            
+            
+           inp.setPatient_national_id(idInpt.getText());
+           inp.setInpatient_name(nameInpt.getText());
+        
+           SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+         Date selectedDate = DateoFbithINpatientCombo.getDate();
+         String formattedDate = dateFormat.format(selectedDate);
+
+        inp.setDate_of_birth(formattedDate);
+        inp.setInpatient_sickness(SicknessInp.getText());
+        inp.setInpatient_amount_paid(AmountINp.getText());
+       
+        String selectedDepartmentName = String.valueOf(department_Combo.getSelectedItem());
+
+        // Find the Department object by name
+        Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
+
+        if (selectedDepartment != null) {
+            inp.setDepartment(selectedDepartment);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         Object selectedRoom = Room_Combo.getSelectedItem();
+
+        // Find the Room object by name
+        Rooms selectedRoomObject = findRoomByName(String.valueOf(selectedRoom));
+       
+        if (selectedRoomObject != null) {
+            inp.setRoom(selectedRoomObject);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         inp.setInpatient_phone_number(phoneINp.getText());
+          
+        int userChoice = JOptionPane.showConfirmDialog(this,"ready to be transfered",
+        "Confirmation",JOptionPane.YES_NO_OPTION);
+        
+        if(userChoice == JOptionPane.YES_OPTION) {
+         
+           String feedback = intfs.RegisterTransfered(inp);   
+         
+            if(feedback!=null)
+            {
+
+               JOptionPane.showMessageDialog(this, feedback);
+                    Appointments model = new Appointments();
+                    model.setId(id);
+
+                    String pt = intf.deleteAppointments(model);
+                    id =0;
+                    AddTableRow(); 
+                  
+                  
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Discharge process failed","failure",JOptionPane.ERROR_MESSAGE);
+            }
+                
+         }
+        
+          
+             }
+             catch(Exception e)
+             {
+                 e.printStackTrace();
+             }
+           
+          
+        }
+         else
+        {
+            JOptionPane.showMessageDialog(this, "User is not available");
+        }
+        
     }//GEN-LAST:event_TRANSFERBTNActionPerformed
 
     private void Room_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Room_ComboActionPerformed

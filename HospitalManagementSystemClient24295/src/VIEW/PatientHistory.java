@@ -7,12 +7,14 @@ package VIEW;
 
 
 import MODEL.Discharged;
-import MODEL.Discharged;
+import MODEL.Transfered;
 import SERVICE.DischargedInterface;
 import SERVICE.InpatientInterface;
+import SERVICE.TransferedInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,14 +22,17 @@ import javax.swing.table.DefaultTableModel;
  * @author destin
  */
 public class PatientHistory extends javax.swing.JFrame {
-DefaultTableModel tableModel = new DefaultTableModel();
+DefaultTableModel tableModel = new DefaultTableModel(); // discharge table
+DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
     /**
      * Creates new form PatientTransfer
      */
     public PatientHistory() {
         initComponents();
         AddTableColumnDischarged();
+        AddTableColumnTransfered();
         AddTableRowDischarged();
+        AddTableRowTransfered();
         
     }
     
@@ -45,10 +50,26 @@ DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("phone no");
         tableModel.addColumn("Date in");
         
-        TransferedTable.setModel(tableModel);
+        OutpatienceTable.setModel(tableModel);
         
     }
-    
+     public void AddTableColumnTransfered()
+            
+    {
+        tModel.addColumn("Id");
+        tModel.addColumn("National id");
+        tModel.addColumn("Name");
+        tModel.addColumn("Date of birth");
+        tModel.addColumn("Sickness");
+        tModel.addColumn("Paid");
+        tModel.addColumn("Department");
+        tModel.addColumn("Room");
+        tModel.addColumn("phone no");
+        tModel.addColumn("Date in");
+        
+        TransferedTable.setModel(tModel);
+        
+    }
         public void AddTableRowDischarged()
     {
        
@@ -90,7 +111,46 @@ DefaultTableModel tableModel = new DefaultTableModel();
       
         }
         
-    
+     public void AddTableRowTransfered()
+    {
+       
+        try{
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1",6000);
+           TransferedInterface intf = (TransferedInterface) registry.lookup("transfered");
+
+            List<Transfered> inp = intf.allTransfered();
+            String department = null;
+            String room =null;
+            for (Transfered obj : inp) {
+            if (obj.getDepartment() != null || obj.getRoom() != null) {
+                department = obj.getDepartment() != null ? obj.getDepartment().getDep_name() : "";
+                room = obj.getRoom() != null ? obj.getRoom().getRoom_no() : "";
+            } else {
+                department = "";
+                room = "";
+            }
+            tModel.addRow(new Object[]{
+                obj.getId(),
+                obj.getPatient_national_id(),
+                obj.getInpatient_name(),
+                obj.getDate_of_birth(),
+                obj.getInpatient_sickness(),
+                obj.getInpatient_amount_paid(),
+                department,
+                room,
+                obj.getInpatient_phone_number(),
+                obj.getInpatient_date_in(),
+            });
+        }
+        }
+        catch(Exception e)
+        {
+           e.printStackTrace();
+            
+        }
+        
+      
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +165,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TransferedTable = new javax.swing.JTable();
+        OutpatienceTable = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         Logoutbtn = new javax.swing.JButton();
         Gobackbtn = new javax.swing.JButton();
@@ -115,7 +175,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         SearchTransferInp = new javax.swing.JTextField();
         jScrollBar3 = new javax.swing.JScrollBar();
         jScrollPane2 = new javax.swing.JScrollPane();
-        DischargedTable = new javax.swing.JTable();
+        TransferedTable = new javax.swing.JTable();
         jScrollBar1 = new javax.swing.JScrollBar();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -147,7 +207,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jPanel8.setBackground(new java.awt.Color(117, 216, 158));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        TransferedTable.setModel(new javax.swing.table.DefaultTableModel(
+        OutpatienceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -158,7 +218,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TransferedTable);
+        jScrollPane1.setViewportView(OutpatienceTable);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -182,9 +242,19 @@ DefaultTableModel tableModel = new DefaultTableModel();
 
         Searchdischarged.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         Searchdischarged.setText("SEARCH");
+        Searchdischarged.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchdischargedActionPerformed(evt);
+            }
+        });
 
         seaarchTransferBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         seaarchTransferBtn.setText("SEARCH");
+        seaarchTransferBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seaarchTransferBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -224,7 +294,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGap(23, 23, 23))
         );
 
-        DischargedTable.setModel(new javax.swing.table.DefaultTableModel(
+        TransferedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -235,7 +305,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(DischargedTable);
+        jScrollPane2.setViewportView(TransferedTable);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -316,6 +386,78 @@ DefaultTableModel tableModel = new DefaultTableModel();
         loginPage.show();
     }//GEN-LAST:event_GobackbtnActionPerformed
 
+    private void SearchdischargedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchdischargedActionPerformed
+      try{
+         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+         DischargedInterface intf = (DischargedInterface) registry.lookup("transfered");
+
+        Discharged searchCriteria = new Discharged();
+        searchCriteria.setPatient_national_id(SearchdischargedInp.getText());
+        Discharged obj = intf.getdischargedById(searchCriteria);
+   
+        if(obj!=null)
+        {
+          tableModel.setRowCount(0);
+           tableModel.addRow(new Object[]{
+                obj.getId(),
+                obj.getPatient_national_id(),
+                obj.getInpatient_name(),
+                obj.getDate_of_birth(),
+                obj.getInpatient_sickness(),
+                obj.getInpatient_amount_paid(),
+                obj.getDepartment().getDep_name(),
+                obj.getRoom().getRoom_no(),
+                obj.getInpatient_phone_number(),
+                obj.getInpatient_date_in(),
+            }); 
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "User not found");
+        }
+      }
+      catch(Exception e)
+      {
+          e.printStackTrace();
+      }
+    }//GEN-LAST:event_SearchdischargedActionPerformed
+
+    private void seaarchTransferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seaarchTransferBtnActionPerformed
+        try{
+         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+         TransferedInterface intf = (TransferedInterface) registry.lookup("transfered");
+
+        Transfered searchCriteria = new Transfered();
+        searchCriteria.setPatient_national_id(SearchTransferInp.getText());
+        Transfered obj = intf.gettransferedById(searchCriteria);
+   
+        if(obj!=null)
+        {
+          tModel.setRowCount(0);
+           tModel.addRow(new Object[]{
+                obj.getId(),
+                obj.getPatient_national_id(),
+                obj.getInpatient_name(),
+                obj.getDate_of_birth(),
+                obj.getInpatient_sickness(),
+                obj.getInpatient_amount_paid(),
+                obj.getDepartment().getDep_name(),
+                obj.getRoom().getRoom_no(),
+                obj.getInpatient_phone_number(),
+                obj.getInpatient_date_in(),
+            }); 
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "User not found");
+        }
+      }
+      catch(Exception e)
+      {
+          e.printStackTrace();
+      }
+    }//GEN-LAST:event_seaarchTransferBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,9 +497,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable DischargedTable;
     private javax.swing.JButton Gobackbtn;
     private javax.swing.JButton Logoutbtn;
+    private javax.swing.JTable OutpatienceTable;
     private javax.swing.JTextField SearchTransferInp;
     private javax.swing.JButton Searchdischarged;
     private javax.swing.JTextField SearchdischargedInp;

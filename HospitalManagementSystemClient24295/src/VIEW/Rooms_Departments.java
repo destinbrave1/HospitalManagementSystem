@@ -647,10 +647,12 @@ public class Rooms_Departments extends javax.swing.JFrame {
                 String feedback = intf.Registerdepartment(dep);
                 if(feedback!=null)
                 {
+                    
                     JOptionPane.showMessageDialog(this,feedback,"success",JOptionPane.INFORMATION_MESSAGE);
                     depart_id_input.setText("");
-                    department_Combobox.setSelectedItem(null);
+                    AddDepartmentToComboRoom();
                     addRowDataDepartment();
+                   
                 }
     } catch (Exception e) {
         e.printStackTrace();
