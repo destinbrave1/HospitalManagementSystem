@@ -23,7 +23,7 @@ public class Dao_DischargedPatients {
             tr.commit();
 
             ss.close();
-            return "Registed successfully";
+            return "Discharged successfully";
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -67,14 +67,23 @@ public class Dao_DischargedPatients {
         return null;
     }
     public Discharged searchDischarged(Discharged object){
-        try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Discharged theDischarged = (Discharged)ss.get(Discharged.class, object.getDischarged_id());
-            ss.close();
-            return theDischarged;
-        }catch(Exception ex){
-            ex.printStackTrace();
+     try{
+            
+       Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Discharged> patients = ss.createQuery("select patients from Discharged patients where "
+               + "patients.patient_national_id ='"+object.getPatient_national_id()+"'").list();
+       ss.close();
+       if(patients!=null)
+       {
+          return patients.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
-    }
+}
 }

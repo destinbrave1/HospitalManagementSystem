@@ -22,13 +22,16 @@ public class Appointments implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="patient_passport")
     private String  patient_national_id;
     private String  inpatient_name;
     private String  date_of_birth;
     private String inpatient_sickness;
     private String inpatient_amount_paid;
+    @ManyToOne
+    @JoinColumn(name="dep_id")
     private Department department;
+    @ManyToOne
+    @JoinColumn(name="room_no")
     private Rooms room;
     private String inpatient_phone_number;
     private Date inpatient_date_in;

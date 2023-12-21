@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package VIEW;
+import MODEL.Appointments;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import MODEL.Department;
 import MODEL.Inpatients;
 import MODEL.Rooms;
+import SERVICE.AppointmentsInterface;
 import SERVICE.DepartmentInterface;
 import SERVICE.InpatientInterface;
 import SERVICE.RoomInterface;
@@ -140,6 +142,63 @@ DefaultTableModel tableModel = new DefaultTableModel();
         e.printStackTrace();
     }
 }
+    private void appointmentRegistration()
+    {
+        try{
+               Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+                AppointmentsInterface appointmentsInterface = (AppointmentsInterface) registry.lookup("appointment");
+                Appointments appointments = new Appointments();
+
+                appointments.setPatient_national_id(idInpt.getText());
+                appointments.setInpatient_name(nameInpt.getText());
+
+                SimpleDateFormat dateFormats = new SimpleDateFormat("MMM d, yyyy");
+                Date selectedDates = DateoFbithINpatientCombo.getDate();
+                String formattedDates = dateFormats.format(selectedDates);
+
+                appointments.setDate_of_birth(formattedDates);
+                appointments.setInpatient_sickness(SicknessInp.getText());
+                appointments.setInpatient_amount_paid(AmountINp.getText());
+
+                String selectedDepartmentNames = String.valueOf(department_Combo.getSelectedItem());
+                Department selectedDepartments = findDepartmentByName(selectedDepartmentNames);
+
+                if (selectedDepartments != null) {
+                    appointments.setDepartment(selectedDepartments);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Object selectedRooms = Room_Combo.getSelectedItem();
+                Rooms selectedRoomObjects = findRoomByName(String.valueOf(selectedRooms));
+
+                if (selectedRoomObjects != null) {
+                    appointments.setRoom(selectedRoomObjects);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                appointments.setInpatient_phone_number(phoneINp.getText());
+
+                int userChoice = JOptionPane.showConfirmDialog(this, "Book appointment with doctor",
+                        "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (userChoice == JOptionPane.YES_OPTION) {
+                    String feedbackAppointments = appointmentsInterface.RegisterAppointments(appointments);
+                    JOptionPane.showMessageDialog(this, feedbackAppointments);
+                }
+                
+                }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                
+               JOptionPane.showMessageDialog(this, "Error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    
     private Department findDepartmentByName(String depName) {
     try {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
@@ -352,12 +411,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
                     .addComponent(SicknessInp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(AmountINp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(department_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -547,7 +603,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jMenu7.setText("Checking");
+        jMenu7.setText("Doctors");
 
         TransferedMenu.setText("Appointments");
         TransferedMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -606,62 +662,58 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegisterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterbtnActionPerformed
-      try {
+       try {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
-        InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+        InpatientInterface inpatientInterface = (InpatientInterface) registry.lookup("inpatient");
         
-        Inpatients inp = new Inpatients();
-        
-        inp.setPatient_national_id(idInpt.getText());
-        inp.setInpatient_name(nameInpt.getText());
-        
+
+        Inpatients inpatient = new Inpatients();
+
+        inpatient.setPatient_national_id(idInpt.getText());
+        inpatient.setInpatient_name(nameInpt.getText());
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
-         Date selectedDate = DateoFbithINpatientCombo.getDate();
-         String formattedDate = dateFormat.format(selectedDate);
+        Date selectedDate = DateoFbithINpatientCombo.getDate();
+        String formattedDate = dateFormat.format(selectedDate);
 
-        inp.setDate_of_birth(formattedDate);
-        inp.setInpatient_sickness(SicknessInp.getText());
-        inp.setInpatient_amount_paid(AmountINp.getText());
-       
+        inpatient.setDate_of_birth(formattedDate);
+        inpatient.setInpatient_sickness(SicknessInp.getText());
+        inpatient.setInpatient_amount_paid(AmountINp.getText());
+
         String selectedDepartmentName = String.valueOf(department_Combo.getSelectedItem());
-
-        // Find the Department object by name
         Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
 
         if (selectedDepartment != null) {
-            inp.setDepartment(selectedDepartment);
+            inpatient.setDepartment(selectedDepartment);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-         Object selectedRoom = Room_Combo.getSelectedItem();
 
-        // Find the Room object by name
+        Object selectedRoom = Room_Combo.getSelectedItem();
         Rooms selectedRoomObject = findRoomByName(String.valueOf(selectedRoom));
 
         if (selectedRoomObject != null) {
-            inp.setRoom(selectedRoomObject);
+            inpatient.setRoom(selectedRoomObject);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-         
-        
-        inp.setInpatient_phone_number(phoneINp.getText());
-        
-        String feedback = intf.RegisterInpatients(inp);
-        if(feedback!=null)
-        {
-            JOptionPane.showMessageDialog(this, feedback);
+        inpatient.setInpatient_phone_number(phoneINp.getText());
+
+        String feedbackInpatient = inpatientInterface.RegisterInpatients(inpatient);
+
+        if (feedbackInpatient != null) {
+            JOptionPane.showMessageDialog(this, feedbackInpatient);
+            addRowData();
+            appointmentRegistration();
+            
         }
-           addRowData();
-             }
-             catch(Exception e)
-             {
-                 e.printStackTrace();
-             }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     
     }//GEN-LAST:event_RegisterbtnActionPerformed
 
@@ -717,31 +769,49 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }//GEN-LAST:event_InpatientTableMouseClicked
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed
-          try {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
-        InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
+           try {
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            InpatientInterface intf = (InpatientInterface) registry.lookup("inpatient");
 
-        Inpatients searchCriteria = new Inpatients();
-        searchCriteria.setPatient_national_id(SearchInp.getText());
+            Inpatients searchCriteria = new Inpatients();
+            searchCriteria.setPatient_national_id(SearchInp.getText());
 
-        Inpatients foundInpatient = intf.getinpatientsById(searchCriteria);
-        
-        if (foundInpatient != null) {
-            
-            idInpt.setText(SearchInp.getText());
-            nameInpt.setText(foundInpatient.getInpatient_name());
-            AmountINp.setText(foundInpatient.getInpatient_amount_paid());
-            phoneINp.setText(foundInpatient.getInpatient_phone_number());
-            SicknessInp.setText(foundInpatient.getInpatient_sickness());
-            id = foundInpatient.getId();
-           
-        } else {
-            JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
+            Inpatients foundInpatient = intf.getinpatientsById(searchCriteria);
+
+            if (foundInpatient != null) {
+
+                idInpt.setText(SearchInp.getText());
+                nameInpt.setText(foundInpatient.getInpatient_name());
+                
+                String dobString = foundInpatient.getDate_of_birth();
+
+               
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                Date dobDate = null;
+
+                try {
+                   
+                    dobDate = dateFormat.parse(dobString);
+                } catch (Exception e) {
+                    e.printStackTrace(); 
+                }
+
+
+                DateoFbithINpatientCombo.setDate(dobDate);
+                department_Combo.setSelectedItem(foundInpatient.getDepartment().getDep_name());
+                Room_Combo.setSelectedItem(foundInpatient.getRoom().getRoom_no());
+                AmountINp.setText(foundInpatient.getInpatient_amount_paid());
+                phoneINp.setText(foundInpatient.getInpatient_phone_number());
+                SicknessInp.setText(foundInpatient.getInpatient_sickness());
+                id = foundInpatient.getId();
+                
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-      
       
     }//GEN-LAST:event_SeachBtnActionPerformed
 
@@ -841,7 +911,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }//GEN-LAST:event_SAVEBILLActionPerformed
 
     private void TransferedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferedMenuActionPerformed
-
+        Appointment_receptionist check = new Appointment_receptionist();
+        dispose();
+        check.show();
     }//GEN-LAST:event_TransferedMenuActionPerformed
 
     /**

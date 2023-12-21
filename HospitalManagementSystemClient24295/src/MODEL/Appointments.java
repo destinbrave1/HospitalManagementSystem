@@ -16,21 +16,39 @@ import java.util.List;
  */
 
 public class Appointments implements Serializable {
-    private static final long serialVersionUID = 5149641714150001821L; 
+     private static final long serialVersionUID = 5149641714150001821L;
     private Integer id;
     private String  patient_national_id;
     private String  inpatient_name;
     private String  date_of_birth;
     private String inpatient_sickness;
     private String inpatient_amount_paid;
+    private Department department;
+    private Rooms room;
     private String inpatient_phone_number;
-    private Date inpatient_date_in;
+    private Date inpatient_date_in = new Date();
 
     public Appointments() {
     }
 
     public Appointments(String patient_national_id) {
         this.patient_national_id = patient_national_id;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Rooms getRoom() {
+        return room;
+    }
+
+    public void setRoom(Rooms room) {
+        this.room = room;
     }
 
     public Appointments(Integer id, String patient_national_id, String inpatient_name, String date_of_birth, String inpatient_sickness, String inpatient_amount_paid, String inpatient_phone_number, Date inpatient_date_in) {

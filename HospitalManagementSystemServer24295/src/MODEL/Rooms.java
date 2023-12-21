@@ -25,6 +25,26 @@ public class Rooms implements Serializable {
     private Department department;
     @OneToMany(mappedBy = "room")
     private List<Inpatients> patient = new ArrayList<>();
+    @OneToMany(mappedBy = "room")
+    private List<Appointments> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "room")
+    private List<Discharged> discharge = new ArrayList<>();
+
+    public List<Discharged> getDischarge() {
+        return discharge;
+    }
+
+    public void setDischarge(List<Discharged> discharge) {
+        this.discharge = discharge;
+    }
+
+    public List<Appointments> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointments> appointments) {
+        this.appointments = appointments;
+    }
 
     public Rooms() {
     }

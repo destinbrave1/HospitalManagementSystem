@@ -69,13 +69,22 @@ public class DaoAppointments {
     }
     public Appointments searchAppointments(Appointments object){
         try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Appointments theAppointments = (Appointments)ss.get(Appointments.class, object.getPatient_national_id());
-            ss.close();
-            return theAppointments;
-        }catch(Exception ex){
-            ex.printStackTrace();
+            
+       Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Appointments> patients = ss.createQuery("select patients from Appointments patients where "
+               + "patients.patient_national_id ='"+object.getPatient_national_id()+"'").list();
+       ss.close();
+       if(patients!=null)
+       {
+          return patients.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
     }
 }

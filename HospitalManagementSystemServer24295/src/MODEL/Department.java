@@ -22,6 +22,7 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     private String dep_id;
+    @Column(name = "dep_name", length = 255)
     private String dep_name;
     private Date started_date = new Date();
     @OneToMany(mappedBy = "department")
@@ -30,6 +31,19 @@ public class Department implements Serializable {
     private List<Inpatients> patient = new ArrayList<>();
     @OneToMany(mappedBy = "department")
     private List<Stuff> stuff = new ArrayList<>();
+    @OneToMany(mappedBy = "department")
+    private List<Appointments> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "department")
+    private List<Discharged> discharge = new ArrayList<>();
+    
+    public List<Appointments> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointments> appointments) {
+        this.appointments = appointments;
+    }
+    
 
     public Department() {
     }
