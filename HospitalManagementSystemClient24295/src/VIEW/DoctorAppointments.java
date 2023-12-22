@@ -525,13 +525,17 @@ DefaultTableModel tableModel = new DefaultTableModel();
 
     private void PatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientHistoryActionPerformed
 
-        dispose();
+       
         PatientHistory transfers_discharged = new PatientHistory();
         transfers_discharged.show();
+         dispose();
     }//GEN-LAST:event_PatientHistoryActionPerformed
 
     private void Gobackbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn1ActionPerformed
-        // TODO add your handling code here:
+           
+        DoctorHomepage doctors= new DoctorHomepage();
+        doctors.show();
+        dispose();
     }//GEN-LAST:event_Gobackbtn1ActionPerformed
 
     private void CUREbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CUREbtnActionPerformed

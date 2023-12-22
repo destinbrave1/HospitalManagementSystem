@@ -54,15 +54,13 @@ public class AdminHomePage extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
-        TransferedMenu = new javax.swing.JMenuItem();
-        DischargedMenu = new javax.swing.JMenuItem();
-        InpatientMenu = new javax.swing.JMenuItem();
+        PatientHistory = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         Drugstore_menu = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Doctors_appointments = new javax.swing.JMenuItem();
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -114,7 +112,7 @@ public class AdminHomePage extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon("/home/destin/NetBeansProjects/MIDTERM_PROJECT/src/backgroundhome.resized.jpg")); // NOI18N
         jLabel5.setText("                                                                                                                                                                                                                                                                                         ADMINISTRATOR");
 
-        jPanel3.setBackground(new java.awt.Color(195, 235, 214));
+        jPanel3.setBackground(new java.awt.Color(52, 132, 90));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel6.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/Background icon/a.resized.jpg")); // NOI18N
@@ -122,7 +120,7 @@ public class AdminHomePage extends javax.swing.JFrame {
         AdministrationHomebtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         AdministrationHomebtn.setForeground(new java.awt.Color(224, 2, 2));
         AdministrationHomebtn.setIcon(new javax.swing.ImageIcon("/home/destin/NetBeansProjects/MIDTERM_PROJECT/src/admin.resized.jpg")); // NOI18N
-        AdministrationHomebtn.setText("Control");
+        AdministrationHomebtn.setText("Pharmacy");
         AdministrationHomebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdministrationHomebtnActionPerformed(evt);
@@ -146,7 +144,7 @@ public class AdminHomePage extends javax.swing.JFrame {
         receptionhomeBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         receptionhomeBtn.setForeground(new java.awt.Color(230, 14, 5));
         receptionhomeBtn.setIcon(new javax.swing.ImageIcon("/home/destin/NetBeansProjects/MIDTERM_PROJECT/src/Reception.resized.jpg")); // NOI18N
-        receptionhomeBtn.setText("Inpatients");
+        receptionhomeBtn.setText("Reception");
         receptionhomeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 receptionhomeBtnActionPerformed(evt);
@@ -288,29 +286,16 @@ public class AdminHomePage extends javax.swing.JFrame {
 
         jMenu7.setText("Patients");
 
-        TransferedMenu.setText("Transfered");
-        TransferedMenu.addActionListener(new java.awt.event.ActionListener() {
+        PatientHistory.setText("Patient History");
+        PatientHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TransferedMenuActionPerformed(evt);
+                PatientHistoryActionPerformed(evt);
             }
         });
-        jMenu7.add(TransferedMenu);
+        jMenu7.add(PatientHistory);
 
-        DischargedMenu.setText("Discharged");
-        DischargedMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DischargedMenuActionPerformed(evt);
-            }
-        });
-        jMenu7.add(DischargedMenu);
-
-        InpatientMenu.setText("Inpatients");
-        InpatientMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InpatientMenuActionPerformed(evt);
-            }
-        });
-        jMenu7.add(InpatientMenu);
+        jMenuItem4.setText("Diagnosis");
+        jMenu7.add(jMenuItem4);
 
         jMenuBar1.add(jMenu7);
 
@@ -331,11 +316,13 @@ public class AdminHomePage extends javax.swing.JFrame {
 
         jMenu9.setText("Doctors");
 
-        jMenuItem1.setText("Diagnosis");
-        jMenu9.add(jMenuItem1);
-
-        jMenuItem3.setText("Appointments");
-        jMenu9.add(jMenuItem3);
+        Doctors_appointments.setText("Appointments");
+        Doctors_appointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Doctors_appointmentsActionPerformed(evt);
+            }
+        });
+        jMenu9.add(Doctors_appointments);
 
         jMenuBar1.add(jMenu9);
 
@@ -360,11 +347,15 @@ public class AdminHomePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AdministrationHomebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministrationHomebtnActionPerformed
-
+         PharmacyHomepage object = new PharmacyHomepage();
+         object.show();
+         dispose();
     }//GEN-LAST:event_AdministrationHomebtnActionPerformed
 
     private void appoinmentbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appoinmentbtnActionPerformed
-
+       Rooms_Departments object = new Rooms_Departments();
+       object.show();
+       dispose();
     }//GEN-LAST:event_appoinmentbtnActionPerformed
 
     private void LogoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutbtnActionPerformed
@@ -372,34 +363,38 @@ public class AdminHomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutbtnActionPerformed
 
     private void receptionhomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionhomeBtnActionPerformed
-
+           ReceptionistHomepage object = new ReceptionistHomepage();
+           object.show();
+           dispose();
     }//GEN-LAST:event_receptionhomeBtnActionPerformed
 
     private void appoinmentbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appoinmentbtn1ActionPerformed
-
+                StuffManagement object = new StuffManagement();
+                object.show();
+                dispose();
     }//GEN-LAST:event_appoinmentbtn1ActionPerformed
 
     private void Logoutbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Logoutbtn1ActionPerformed
-
+         LoginPage login = new LoginPage();
+         login.show();
+         dispose();
     }//GEN-LAST:event_Logoutbtn1ActionPerformed
 
-    private void TransferedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferedMenuActionPerformed
-
-
-
-    }//GEN-LAST:event_TransferedMenuActionPerformed
-
-    private void DischargedMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DischargedMenuActionPerformed
-
-    }//GEN-LAST:event_DischargedMenuActionPerformed
-
-    private void InpatientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InpatientMenuActionPerformed
-
-    }//GEN-LAST:event_InpatientMenuActionPerformed
+    private void PatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientHistoryActionPerformed
+        PatientHistory object = new PatientHistory();
+        object.show();
+        dispose();
+    }//GEN-LAST:event_PatientHistoryActionPerformed
 
     private void Drugstore_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Drugstore_menuActionPerformed
 
     }//GEN-LAST:event_Drugstore_menuActionPerformed
+
+    private void Doctors_appointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Doctors_appointmentsActionPerformed
+         DoctorAppointments object = new DoctorAppointments();
+         object.show();
+         dispose();
+    }//GEN-LAST:event_Doctors_appointmentsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,12 +434,11 @@ public class AdminHomePage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdministrationHomebtn;
-    private javax.swing.JMenuItem DischargedMenu;
+    private javax.swing.JMenuItem Doctors_appointments;
     private javax.swing.JMenuItem Drugstore_menu;
-    private javax.swing.JMenuItem InpatientMenu;
     private javax.swing.JButton Logoutbtn;
     private javax.swing.JButton Logoutbtn1;
-    private javax.swing.JMenuItem TransferedMenu;
+    private javax.swing.JMenuItem PatientHistory;
     private javax.swing.JButton appoinmentbtn;
     private javax.swing.JButton appoinmentbtn1;
     private javax.swing.JLabel jLabel1;
@@ -466,9 +460,8 @@ public class AdminHomePage extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;

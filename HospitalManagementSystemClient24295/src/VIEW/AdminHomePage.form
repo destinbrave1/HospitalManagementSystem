@@ -114,29 +114,18 @@
             <Property name="text" type="java.lang.String" value="Patients"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="TransferedMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="PatientHistory">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Transfered"/>
+                <Property name="text" type="java.lang.String" value="Patient History"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TransferedMenuActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PatientHistoryActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="DischargedMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Discharged"/>
+                <Property name="text" type="java.lang.String" value="Diagnosis"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DischargedMenuActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="InpatientMenu">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Inpatients"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InpatientMenuActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -165,15 +154,13 @@
             <Property name="text" type="java.lang.String" value="Doctors"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Diagnosis"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="Doctors_appointments">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Appointments"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Doctors_appointmentsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -286,7 +273,7 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="d6" green="eb" red="c3" type="rgb"/>
+              <Color blue="5a" green="84" red="34" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -380,7 +367,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="/home/destin/NetBeansProjects/MIDTERM_PROJECT/src/admin.resized.jpg"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Control"/>
+                <Property name="text" type="java.lang.String" value="Pharmacy"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdministrationHomebtnActionPerformed"/>
@@ -428,7 +415,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="/home/destin/NetBeansProjects/MIDTERM_PROJECT/src/Reception.resized.jpg"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Inpatients"/>
+                <Property name="text" type="java.lang.String" value="Reception"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receptionhomeBtnActionPerformed"/>

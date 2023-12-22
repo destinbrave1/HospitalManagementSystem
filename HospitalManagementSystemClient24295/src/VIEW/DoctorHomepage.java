@@ -34,8 +34,6 @@ public class DoctorHomepage extends javax.swing.JFrame {
         dischargedbtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        emergencybtn = new javax.swing.JButton();
-        transferbtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Logoutbtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -44,13 +42,10 @@ public class DoctorHomepage extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        Patient_history = new javax.swing.JMenuItem();
+        Diagnosis_menu = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        Drugstore_menu = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Appointment = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +57,7 @@ public class DoctorHomepage extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/PATIENTS/Inpatients.resized.jpg")); // NOI18N
 
         inpatientbtn.setForeground(new java.awt.Color(195, 15, 15));
-        inpatientbtn.setText("Inpatient");
+        inpatientbtn.setText("Appointments");
         inpatientbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inpatientbtnActionPerformed(evt);
@@ -79,54 +74,30 @@ public class DoctorHomepage extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/ambulance.resized.jpg")); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/transfer.resized.png")); // NOI18N
-
-        emergencybtn.setForeground(new java.awt.Color(217, 38, 38));
-        emergencybtn.setText("Emergency Cases");
-        emergencybtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emergencybtnActionPerformed(evt);
-            }
-        });
-
-        transferbtn.setForeground(new java.awt.Color(213, 34, 34));
-        transferbtn.setText("Transfers");
-        transferbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transferbtnActionPerformed(evt);
-            }
-        });
+        jLabel2.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/transfer.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(inpatientbtn)
-                        .addGap(265, 265, 265)
-                        .addComponent(dischargedbtn))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(emergencybtn)
-                        .addGap(282, 282, 282)
-                        .addComponent(transferbtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(100, 100, 100)
+                .addComponent(inpatientbtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dischargedbtn)
+                .addGap(336, 336, 336))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(197, 197, 197)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 354, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 284, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,19 +106,21 @@ public class DoctorHomepage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inpatientbtn)
-                    .addComponent(dischargedbtn))
-                .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(transferbtn)
-                    .addComponent(emergencybtn))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(inpatientbtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(dischargedbtn)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(85, 142, 111));
@@ -231,32 +204,28 @@ public class DoctorHomepage extends javax.swing.JFrame {
 
         jMenu7.setText("Patients");
 
-        jMenuItem1.setText("Diagnosis");
-        jMenu7.add(jMenuItem1);
+        Patient_history.setText("Patient History");
+        Patient_history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Patient_historyActionPerformed(evt);
+            }
+        });
+        jMenu7.add(Patient_history);
 
-        jMenuItem2.setText("Transfered");
-        jMenu7.add(jMenuItem2);
-
-        jMenuItem4.setText("Inpatients");
-        jMenu7.add(jMenuItem4);
-
-        jMenuItem5.setText("Discharged");
-        jMenu7.add(jMenuItem5);
+        Diagnosis_menu.setText("Diagnosis");
+        jMenu7.add(Diagnosis_menu);
 
         jMenuBar1.add(jMenu7);
 
         jMenu8.setText("Todo");
 
-        Drugstore_menu.setText("Appointments");
-        Drugstore_menu.addActionListener(new java.awt.event.ActionListener() {
+        Appointment.setText("Appointments");
+        Appointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Drugstore_menuActionPerformed(evt);
+                AppointmentActionPerformed(evt);
             }
         });
-        jMenu8.add(Drugstore_menu);
-
-        jMenuItem3.setText("Diagnosis");
-        jMenu8.add(jMenuItem3);
+        jMenu8.add(Appointment);
 
         jMenuBar1.add(jMenu8);
 
@@ -286,29 +255,39 @@ public class DoctorHomepage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Drugstore_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Drugstore_menuActionPerformed
-  
-    }//GEN-LAST:event_Drugstore_menuActionPerformed
+    private void AppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointmentActionPerformed
+           
+           DoctorAppointments object = new DoctorAppointments();
+           object.show();
+           dispose(); 
+    }//GEN-LAST:event_AppointmentActionPerformed
 
     private void inpatientbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpatientbtnActionPerformed
-      
+           DoctorAppointments object = new DoctorAppointments();
+           object.show();
+           dispose();
     }//GEN-LAST:event_inpatientbtnActionPerformed
 
     private void dischargedbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dischargedbtnActionPerformed
-    
+                PatientHistory object = new PatientHistory();
+                object.show();
+                dispose();
     }//GEN-LAST:event_dischargedbtnActionPerformed
 
-    private void emergencybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emergencybtnActionPerformed
-       
-    }//GEN-LAST:event_emergencybtnActionPerformed
-
-    private void transferbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferbtnActionPerformed
-     
-    }//GEN-LAST:event_transferbtnActionPerformed
-
     private void LogoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutbtnActionPerformed
-
+        LoginPage login = new LoginPage();
+        login.show();
+        dispose();
+        
     }//GEN-LAST:event_LogoutbtnActionPerformed
+
+    private void Patient_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Patient_historyActionPerformed
+          
+         PatientHistory object = new PatientHistory();
+         object.show();
+          dispose(); 
+            
+    }//GEN-LAST:event_Patient_historyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,10 +326,11 @@ public class DoctorHomepage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Drugstore_menu;
+    private javax.swing.JMenuItem Appointment;
+    private javax.swing.JMenuItem Diagnosis_menu;
     private javax.swing.JButton Logoutbtn;
+    private javax.swing.JMenuItem Patient_history;
     private javax.swing.JButton dischargedbtn;
-    private javax.swing.JButton emergencybtn;
     private javax.swing.JButton inpatientbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -361,15 +341,9 @@ public class DoctorHomepage extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JButton transferbtn;
     // End of variables declaration//GEN-END:variables
 }
