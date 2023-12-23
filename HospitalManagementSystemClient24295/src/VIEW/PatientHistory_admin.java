@@ -21,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author destin
  */
-public class PatientHistory extends javax.swing.JFrame {
+public class PatientHistory_admin extends javax.swing.JFrame {
 DefaultTableModel tableModel = new DefaultTableModel(); // discharge table
 DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
     /**
      * Creates new form PatientTransfer
      */
-    public PatientHistory() {
+    public PatientHistory_admin() {
         initComponents();
         AddTableColumnDischarged();
         AddTableColumnTransfered();
@@ -274,8 +274,8 @@ DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
                         .addComponent(Searchdischarged, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SearchTransferInp, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(seaarchTransferBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
+                        .addComponent(seaarchTransferBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -382,8 +382,8 @@ DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
     private void GobackbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GobackbtnActionPerformed
         // TODO add your handling code here:
         dispose();
-        DoctorAppointments loginPage = new DoctorAppointments();
-        loginPage.show();
+        AdminHomePage admin = new AdminHomePage();
+        admin.show();
     }//GEN-LAST:event_GobackbtnActionPerformed
 
     private void SearchdischargedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchdischargedActionPerformed
@@ -475,14 +475,18 @@ DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PatientHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientHistory_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PatientHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientHistory_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PatientHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientHistory_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PatientHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientHistory_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -491,7 +495,7 @@ DefaultTableModel tModel = new DefaultTableModel();  // for transfer table
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PatientHistory().setVisible(true);
+                new PatientHistory_admin().setVisible(true);
             }
         });
     }

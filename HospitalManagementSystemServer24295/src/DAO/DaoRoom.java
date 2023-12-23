@@ -69,14 +69,23 @@ public class DaoRoom {
         return null;
     }
     public Rooms searchRooms(Rooms object){
-        try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Rooms theRooms = (Rooms)ss.get(Rooms.class, object.getRoom_no());
-            ss.close();
-            return theRooms;
-        }catch(Exception ex){
-            ex.printStackTrace();
+      try{
+            
+       Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Rooms> room = ss.createQuery("select room from Rooms room where "
+               + "room.room_no ='"+object.getRoom_no()+"'").list();
+       ss.close();
+       if(room!=null)
+       {
+          return room.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
     }
 }

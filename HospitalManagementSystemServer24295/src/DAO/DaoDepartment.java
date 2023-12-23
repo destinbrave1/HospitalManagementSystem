@@ -70,14 +70,23 @@ public class DaoDepartment {
         return null;
     }
     public Department searchDepartment(Department object){
-        try{
-            Session ss = HibernateUtil.getSessionFactory().openSession();
-            Department theDepartment = (Department)ss.get(Department.class, object.getDep_id());
-            ss.close();
-            return theDepartment;
-        }catch(Exception ex){
-            ex.printStackTrace();
+      try{
+            
+       Session ss = HibernateUtil.getSessionFactory().openSession();
+       List<Department> dep = ss.createQuery("select dep from Department dep where "
+               + "dep.dep_id ='"+object.getDep_id()+"'").list();
+       ss.close();
+       if(dep!=null)
+       {
+          return dep.get(0); 
+       }
+       
         }
+        catch(Exception e)
+       {
+            e.printStackTrace();
+        }
+        
         return null;
     }
     

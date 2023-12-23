@@ -6,8 +6,8 @@
 package VIEW;
 
 /**
- *
- * @author destin
+ *                       
+ * @author destin       
  */
 public class Main {
 
@@ -16,5 +16,5 @@ public class Main {
         LoginPage login = new LoginPage();
         login.show();
     }
-    
+                           
 }

@@ -29,13 +29,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author destin
  */
-public class ReceptionistHomepage extends javax.swing.JFrame {
+public class ReceptionistHomepage_admin extends javax.swing.JFrame {
 DefaultTableModel tableModel = new DefaultTableModel();
  private int id =0;
     /**
      * Creates new form ReceptionistHomepage
      */
-    public ReceptionistHomepage() {
+    public ReceptionistHomepage_admin() {
         initComponents();
         AddTableColumn();
         AddDepartmentToCombo();
@@ -271,6 +271,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         ReceiptBtn = new javax.swing.JButton();
         SAVEBILL = new javax.swing.JButton();
         Logoutbtn = new javax.swing.JButton();
+        Gobackbtn2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -458,20 +459,31 @@ DefaultTableModel tableModel = new DefaultTableModel();
             }
         });
 
+        Gobackbtn2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        Gobackbtn2.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/back.resized.png")); // NOI18N
+        Gobackbtn2.setText("GO BACK");
+        Gobackbtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Gobackbtn2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
                         .addComponent(SAVEBILL, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
-                        .addComponent(ReceiptBtn)))
+                        .addComponent(ReceiptBtn))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(Gobackbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -481,7 +493,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
                     .addComponent(ReceiptBtn)
                     .addComponent(SAVEBILL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Gobackbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -675,7 +689,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
         Date selectedDate = DateoFbithINpatientCombo.getDate();
         String formattedDate = dateFormat.format(selectedDate);
-                      
+
         inpatient.setDate_of_birth(formattedDate);
         inpatient.setInpatient_sickness(SicknessInp.getText());
         inpatient.setInpatient_amount_paid(AmountINp.getText());
@@ -930,6 +944,13 @@ DefaultTableModel tableModel = new DefaultTableModel();
         check.show();
     }//GEN-LAST:event_TransferedMenuActionPerformed
 
+    private void Gobackbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn2ActionPerformed
+
+        AdminHomePage doctors= new AdminHomePage();
+        doctors.show();
+        dispose();
+    }//GEN-LAST:event_Gobackbtn2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -947,20 +968,21 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceptionistHomepage_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceptionistHomepage_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceptionistHomepage_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceptionistHomepage_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReceptionistHomepage().setVisible(true);
+                new ReceptionistHomepage_admin().setVisible(true);
             }
         });
     }
@@ -969,6 +991,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JTextField AmountINp;
     private javax.swing.JTextArea BillArea;
     private com.toedter.calendar.JDateChooser DateoFbithINpatientCombo;
+    private javax.swing.JButton Gobackbtn2;
     private javax.swing.JTable InpatientTable;
     private javax.swing.JButton Logoutbtn;
     private javax.swing.JButton ReceiptBtn;

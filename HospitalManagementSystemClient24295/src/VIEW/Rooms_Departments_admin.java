@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author destin
  */
-public class Rooms_Departments extends javax.swing.JFrame {
+public class Rooms_Departments_admin extends javax.swing.JFrame {
  DefaultTableModel tableModel = new DefaultTableModel(); //FOR THE ROOMS
  
  DefaultTableModel tModel = new DefaultTableModel();   // FOR THE DEPARTMENTS
 
-    public Rooms_Departments() {
+    public Rooms_Departments_admin() {
         initComponents();
         AddTableColumnDepartments();
    
@@ -216,6 +216,7 @@ public class Rooms_Departments extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         UpdateRoombtn = new javax.swing.JButton();
+        Gobackbtn3 = new javax.swing.JButton();
         New_room = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
         INpatients = new javax.swing.JMenuItem();
@@ -521,12 +522,22 @@ public class Rooms_Departments extends javax.swing.JFrame {
         UpdateRoombtn.setForeground(new java.awt.Color(215, 31, 31));
         UpdateRoombtn.setText("Update room");
 
+        Gobackbtn3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        Gobackbtn3.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/back.resized.png")); // NOI18N
+        Gobackbtn3.setText("GO BACK");
+        Gobackbtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Gobackbtn3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(623, 623, 623)
+                .addComponent(Gobackbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(443, 443, 443)
                 .addComponent(UpdateRoombtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(258, 258, 258)
                 .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
@@ -535,9 +546,11 @@ public class Rooms_Departments extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UpdateRoombtn)
-                    .addComponent(jButton7))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(UpdateRoombtn)
+                        .addComponent(jButton7))
+                    .addComponent(Gobackbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 24, Short.MAX_VALUE))
         );
 
@@ -760,6 +773,13 @@ public class Rooms_Departments extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_PatientHistoryActionPerformed
 
+    private void Gobackbtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn3ActionPerformed
+
+        AdminHomePage doctors= new AdminHomePage();
+        doctors.show();
+        dispose();
+    }//GEN-LAST:event_Gobackbtn3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -777,27 +797,31 @@ public class Rooms_Departments extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Rooms_Departments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms_Departments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Rooms_Departments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms_Departments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Rooms_Departments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms_Departments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Rooms_Departments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms_Departments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Rooms_Departments().setVisible(true);
+                new Rooms_Departments_admin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Department_table;
+    private javax.swing.JButton Gobackbtn2;
+    private javax.swing.JButton Gobackbtn3;
     private javax.swing.JMenuItem INpatients;
     private javax.swing.JMenuBar New_room;
     private javax.swing.JMenuItem PatientHistory;

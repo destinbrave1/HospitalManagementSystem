@@ -765,7 +765,18 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 SicknessInp.setText(foundInpatient.getInpatient_sickness());
                 id = foundInpatient.getId();
                 
-
+                tableModel.setRowCount(0);
+                tableModel.addRow(new Object[]{
+                foundInpatient.getId(),
+                foundInpatient.getPatient_national_id(),
+                foundInpatient.getInpatient_name(),
+                foundInpatient.getDate_of_birth(),
+                foundInpatient.getInpatient_sickness(),
+                foundInpatient.getInpatient_amount_paid(),
+                foundInpatient.getDepartment().getDep_name(),
+                foundInpatient.getRoom().getRoom_no(),
+                foundInpatient.getInpatient_phone_number(),
+                foundInpatient.getInpatient_date_in()}); 
             } else {
                 JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
             }

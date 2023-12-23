@@ -29,13 +29,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author destin
  */
-public class ReceptionistHomepage extends javax.swing.JFrame {
+public class CheckInpatient_admin extends javax.swing.JFrame {
 DefaultTableModel tableModel = new DefaultTableModel();
  private int id =0;
     /**
      * Creates new form ReceptionistHomepage
      */
-    public ReceptionistHomepage() {
+    public CheckInpatient_admin() {
         initComponents();
         AddTableColumn();
         AddDepartmentToCombo();
@@ -675,7 +675,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
         Date selectedDate = DateoFbithINpatientCombo.getDate();
         String formattedDate = dateFormat.format(selectedDate);
-                      
+
         inpatient.setDate_of_birth(formattedDate);
         inpatient.setInpatient_sickness(SicknessInp.getText());
         inpatient.setInpatient_amount_paid(AmountINp.getText());
@@ -805,20 +805,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 SicknessInp.setText(foundInpatient.getInpatient_sickness());
                 id = foundInpatient.getId();
                 
-                tableModel.setRowCount(0);
-                tableModel.addRow(new Object[]{
-                foundInpatient.getId(),
-                foundInpatient.getPatient_national_id(),
-                foundInpatient.getInpatient_name(),
-                foundInpatient.getDate_of_birth(),
-                foundInpatient.getInpatient_sickness(),
-                foundInpatient.getInpatient_amount_paid(),
-                foundInpatient.getDepartment().getDep_name(),
-                foundInpatient.getRoom().getRoom_no(),
-                foundInpatient.getInpatient_phone_number(),
-                foundInpatient.getInpatient_date_in(),
-            }); 
-                
 
             } else {
                 JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
@@ -947,20 +933,21 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CheckInpatient_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CheckInpatient_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CheckInpatient_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReceptionistHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CheckInpatient_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReceptionistHomepage().setVisible(true);
+                new CheckInpatient_admin().setVisible(true);
             }
         });
     }

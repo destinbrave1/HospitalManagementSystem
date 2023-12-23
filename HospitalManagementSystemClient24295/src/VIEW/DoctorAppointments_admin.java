@@ -8,13 +8,14 @@ package VIEW;
 import MODEL.Appointments;
 import MODEL.Department;
 import MODEL.Discharged;
-import MODEL.Inpatients;
+import MODEL.Appointments;
 import MODEL.Rooms;
-import SERVICE.AppointmentsInterface;
+import MODEL.Transfered;
 import SERVICE.DepartmentInterface;
 import SERVICE.DischargedInterface;
-import SERVICE.InpatientInterface;
+import SERVICE.AppointmentsInterface;
 import SERVICE.RoomInterface;
+import SERVICE.TransferedInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
@@ -28,13 +29,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author destin
  */
-public class Appointment_receptionist extends javax.swing.JFrame {
+public class DoctorAppointments_admin extends javax.swing.JFrame {
 DefaultTableModel tableModel = new DefaultTableModel();
   Integer id =0;
     /**
      * Creates new form Appointments
      */
-    public Appointment_receptionist() {
+    public DoctorAppointments_admin() {
         initComponents();
         AddTableColumn();
         AddTableRow();
@@ -181,9 +182,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }
 }
         
-        
     
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,6 +195,8 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         AppointmentTable = new javax.swing.JTable();
+        CUREbtn = new javax.swing.JButton();
+        TRANSFERBTN = new javax.swing.JButton();
         Gobackbtn1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -221,11 +222,11 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollBar1 = new javax.swing.JScrollBar();
-        jPanel6 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        PatientHistory = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(21, 26, 30));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -241,6 +242,25 @@ DefaultTableModel tableModel = new DefaultTableModel();
             }
         ));
         jScrollPane1.setViewportView(AppointmentTable);
+
+        CUREbtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        CUREbtn.setForeground(new java.awt.Color(221, 42, 42));
+        CUREbtn.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/pill.resized.png")); // NOI18N
+        CUREbtn.setText("CURE");
+        CUREbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CUREbtnActionPerformed(evt);
+            }
+        });
+
+        TRANSFERBTN.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        TRANSFERBTN.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/transfer.resized.png")); // NOI18N
+        TRANSFERBTN.setText("TRANSFER");
+        TRANSFERBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TRANSFERBTNActionPerformed(evt);
+            }
+        });
 
         Gobackbtn1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         Gobackbtn1.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/back.resized.png")); // NOI18N
@@ -395,7 +415,11 @@ DefaultTableModel tableModel = new DefaultTableModel();
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Gobackbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(TRANSFERBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CUREbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -407,12 +431,15 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Gobackbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Gobackbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TRANSFERBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CUREbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(99, 99, 99))
         );
 
-        jPanel2.setBackground(new java.awt.Color(194, 223, 207));
+        jPanel2.setBackground(new java.awt.Color(104, 219, 158));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Yrsa Light", 1, 15)); // NOI18N
@@ -422,45 +449,44 @@ DefaultTableModel tableModel = new DefaultTableModel();
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(1037, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(509, 509, 509)
                 .addComponent(jLabel1)
-                .addGap(46, 46, 46))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 239, 220));
+        jPanel3.setBackground(new java.awt.Color(97, 208, 151));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addGap(0, 121, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(213, 229, 218));
+        jMenu1.setText("Patients");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        PatientHistory.setText("History");
+        PatientHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PatientHistoryActionPerformed(evt);
+            }
+        });
+        jMenu1.add(PatientHistory);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -474,13 +500,9 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,13 +510,12 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -502,9 +523,210 @@ DefaultTableModel tableModel = new DefaultTableModel();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SearchInpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchInpActionPerformed
+    private void PatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientHistoryActionPerformed
+
+       
+        PatientHistory transfers_discharged = new PatientHistory();
+        transfers_discharged.show();
+         dispose();
+    }//GEN-LAST:event_PatientHistoryActionPerformed
+
+    private void Gobackbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn1ActionPerformed
+           
+        AdminHomePage doctors= new AdminHomePage();
+        doctors.show();
+        dispose();
+    }//GEN-LAST:event_Gobackbtn1ActionPerformed
+
+    private void CUREbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CUREbtnActionPerformed
+        if(id!=0)
+        {
+          try {
+            Registry registryAppointment = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            AppointmentsInterface intf = (AppointmentsInterface)registryAppointment.lookup("appointment");
+            
+            Registry registryDischarged = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            DischargedInterface intfs = (DischargedInterface)registryDischarged.lookup("discharge");
+            
+            Discharged inp = new Discharged();
+            
+            
+           inp.setPatient_national_id(idInpt.getText());
+           inp.setInpatient_name(nameInpt.getText());
+        
+           SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+         Date selectedDate = DateoFbithINpatientCombo.getDate();
+         String formattedDate = dateFormat.format(selectedDate);
+
+        inp.setDate_of_birth(formattedDate);
+        inp.setInpatient_sickness(SicknessInp.getText());
+        inp.setInpatient_amount_paid(AmountINp.getText());
+       
+        String selectedDepartmentName = String.valueOf(department_Combo.getSelectedItem());
+
+        // Find the Department object by name
+        Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
+
+        if (selectedDepartment != null) {
+            inp.setDepartment(selectedDepartment);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         Object selectedRoom = Room_Combo.getSelectedItem();
+
+        // Find the Room object by name
+        Rooms selectedRoomObject = findRoomByName(String.valueOf(selectedRoom));
+       
+        if (selectedRoomObject != null) {
+            inp.setRoom(selectedRoomObject);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         inp.setInpatient_phone_number(phoneINp.getText());
+          
+        int userChoice = JOptionPane.showConfirmDialog(this,"is patient cured?",
+        "Confirmation",JOptionPane.YES_NO_OPTION);
+        
+        if (userChoice == JOptionPane.YES_OPTION) {
+         
+           String feedback = intfs.Registerdischarged(inp);   
+         
+            if(feedback!=null)
+            {
+
+               JOptionPane.showMessageDialog(this, feedback);
+                    Appointments model = new Appointments();
+                    model.setId(id);
+
+                    String pt = intf.deleteAppointments(model);
+                    id =0;
+                    AddTableRow(); 
+                  
+                  
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Discharge process failed","failure",JOptionPane.ERROR_MESSAGE);
+            }
+                
+         }
+        
+          
+             }
+             catch(Exception e)
+             {
+                 e.printStackTrace();
+             }
+           
+          
+        }
+         else
+        {
+            JOptionPane.showMessageDialog(this, "User is not available");
+        }
+        
+        
+      
+    }//GEN-LAST:event_CUREbtnActionPerformed
+
+    private void TRANSFERBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TRANSFERBTNActionPerformed
+       if(id!=0)
+        {
+          try {
+            Registry registryAppointment = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            AppointmentsInterface intf = (AppointmentsInterface)registryAppointment.lookup("appointment");
+            
+            Registry registryTransfered = LocateRegistry.getRegistry("127.0.0.1", 6000);
+            TransferedInterface intfs = (TransferedInterface)registryTransfered.lookup("transfered");
+            
+            Transfered inp = new Transfered();
+            
+            
+           inp.setPatient_national_id(idInpt.getText());
+           inp.setInpatient_name(nameInpt.getText());
+        
+           SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+         Date selectedDate = DateoFbithINpatientCombo.getDate();
+         String formattedDate = dateFormat.format(selectedDate);
+
+        inp.setDate_of_birth(formattedDate);
+        inp.setInpatient_sickness(SicknessInp.getText());
+        inp.setInpatient_amount_paid(AmountINp.getText());
+       
+        String selectedDepartmentName = String.valueOf(department_Combo.getSelectedItem());
+
+        // Find the Department object by name
+        Department selectedDepartment = findDepartmentByName(selectedDepartmentName);
+
+        if (selectedDepartment != null) {
+            inp.setDepartment(selectedDepartment);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid department selected", "Department Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         Object selectedRoom = Room_Combo.getSelectedItem();
+
+        // Find the Room object by name
+        Rooms selectedRoomObject = findRoomByName(String.valueOf(selectedRoom));
+       
+        if (selectedRoomObject != null) {
+            inp.setRoom(selectedRoomObject);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid room selected", "Room Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         inp.setInpatient_phone_number(phoneINp.getText());
+          
+        int userChoice = JOptionPane.showConfirmDialog(this,"ready to be transfered",
+        "Confirmation",JOptionPane.YES_NO_OPTION);
+        
+        if(userChoice == JOptionPane.YES_OPTION) {
+         
+           String feedback = intfs.RegisterTransfered(inp);   
+         
+            if(feedback!=null)
+            {
+
+               JOptionPane.showMessageDialog(this, feedback);
+                    Appointments model = new Appointments();
+                    model.setId(id);
+
+                    String pt = intf.deleteAppointments(model);
+                    id =0;
+                    AddTableRow(); 
+                  
+                  
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Discharge process failed","failure",JOptionPane.ERROR_MESSAGE);
+            }
+                
+         }
+        
+          
+             }
+             catch(Exception e)
+             {
+                 e.printStackTrace();
+             }
+           
+          
+        }
+         else
+        {
+            JOptionPane.showMessageDialog(this, "User is not available");
+        }
+        
+    }//GEN-LAST:event_TRANSFERBTNActionPerformed
+
+    private void Room_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Room_ComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SearchInpActionPerformed
+    }//GEN-LAST:event_Room_ComboActionPerformed
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed
         try {
@@ -554,26 +776,19 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 foundInpatient.getDepartment().getDep_name(),
                 foundInpatient.getRoom().getRoom_no(),
                 foundInpatient.getInpatient_phone_number(),
-                foundInpatient.getInpatient_date_in(),
-            }); 
-
+                foundInpatient.getInpatient_date_in()}); 
             } else {
                 JOptionPane.showMessageDialog(this, "Inpatient not found", "Search Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_SeachBtnActionPerformed
 
-    private void Room_ComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Room_ComboActionPerformed
+    private void SearchInpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchInpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Room_ComboActionPerformed
-
-    private void Gobackbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn1ActionPerformed
-        ReceptionistHomepage rcp = new ReceptionistHomepage();
-        dispose();
-        rcp.show();
-    }//GEN-LAST:event_Gobackbtn1ActionPerformed
+    }//GEN-LAST:event_SearchInpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,13 +807,13 @@ DefaultTableModel tableModel = new DefaultTableModel();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Appointment_receptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorAppointments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Appointment_receptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorAppointments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Appointment_receptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorAppointments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Appointment_receptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorAppointments_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -608,7 +823,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Appointment_receptionist().setVisible(true);
+                new DoctorAppointments_admin().setVisible(true);
             }
         });
     }
@@ -616,12 +831,15 @@ DefaultTableModel tableModel = new DefaultTableModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AmountINp;
     private javax.swing.JTable AppointmentTable;
+    private javax.swing.JButton CUREbtn;
     private com.toedter.calendar.JDateChooser DateoFbithINpatientCombo;
     private javax.swing.JButton Gobackbtn1;
+    private javax.swing.JMenuItem PatientHistory;
     private javax.swing.JComboBox<String> Room_Combo;
     private javax.swing.JButton SeachBtn;
     private javax.swing.JTextField SearchInp;
     private javax.swing.JTextField SicknessInp;
+    private javax.swing.JButton TRANSFERBTN;
     private javax.swing.JComboBox<String> department_Combo;
     private javax.swing.JTextField idInpt;
     private javax.swing.JLabel jLabel1;
@@ -633,13 +851,13 @@ DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameInpt;

@@ -347,13 +347,13 @@ public class AdminHomePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AdministrationHomebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministrationHomebtnActionPerformed
-         PharmacyHomepage object = new PharmacyHomepage();
+         PharmacyHomepage_admin object = new PharmacyHomepage_admin();
          object.show();
          dispose();
     }//GEN-LAST:event_AdministrationHomebtnActionPerformed
 
     private void appoinmentbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appoinmentbtnActionPerformed
-       Rooms_Departments object = new Rooms_Departments();
+       Rooms_Departments_admin object = new Rooms_Departments_admin();
        object.show();
        dispose();
     }//GEN-LAST:event_appoinmentbtnActionPerformed
@@ -363,7 +363,7 @@ public class AdminHomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutbtnActionPerformed
 
     private void receptionhomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionhomeBtnActionPerformed
-           ReceptionistHomepage object = new ReceptionistHomepage();
+           ReceptionistHomepage_admin object = new ReceptionistHomepage_admin();
            object.show();
            dispose();
     }//GEN-LAST:event_receptionhomeBtnActionPerformed
@@ -381,7 +381,7 @@ public class AdminHomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_Logoutbtn1ActionPerformed
 
     private void PatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientHistoryActionPerformed
-        PatientHistory object = new PatientHistory();
+        PatientHistory_admin object = new PatientHistory_admin();
         object.show();
         dispose();
     }//GEN-LAST:event_PatientHistoryActionPerformed
@@ -391,7 +391,7 @@ public class AdminHomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_Drugstore_menuActionPerformed
 
     private void Doctors_appointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Doctors_appointmentsActionPerformed
-         DoctorAppointments object = new DoctorAppointments();
+         DoctorAppointments_admin object = new DoctorAppointments_admin();
          object.show();
          dispose();
     }//GEN-LAST:event_Doctors_appointmentsActionPerformed

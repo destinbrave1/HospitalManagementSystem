@@ -624,11 +624,13 @@ public class StuffManagement extends javax.swing.JFrame {
             usernameInp_stuff.setText("");
            
             Phone_stuff.setText("");
-           
+            email_stuff.setText("");
+            FunctionCombo_stuff.setSelectedItem(null);
+            department_Combo.setSelectedItem(null);
             password_stuff.setText("");
             RepeatPassword_stuff.setText("");
             ImageP.setIcon(null);
-        }
+        }                
                               
 
     }//GEN-LAST:event_ClearBtnActionPerformed
@@ -707,6 +709,7 @@ public class StuffManagement extends javax.swing.JFrame {
         if (feedback != null) {
             National_id_stuff.setText("");
             usernameInp_stuff.setText("");
+            email_stuff.setText("");
             Phone_stuff.setText("");
             password_stuff.setText("");
             RepeatPassword_stuff.setText("");
@@ -844,6 +847,15 @@ public class StuffManagement extends javax.swing.JFrame {
             Stuff feedback =intf.getStuffsById(object);
              
             if (feedback != null) {
+                National_id_stuff.setText(feedback.getStuffId());
+                usernameInp_stuff.setText(feedback.getStuffUsername());
+                email_stuff.setText(feedback.getStuffEmail_address());
+                Phone_stuff.setText(feedback.getStuffPhone_number());
+                password_stuff.setText(feedback.getPassword());
+                RepeatPassword_stuff.setText(feedback.getPassword());
+                department_Combo.setSelectedItem(feedback.getDepartment().getDep_name());
+                FunctionCombo_stuff.setSelectedItem(feedback.getStuffFunction());
+                
                 tableModel.setRowCount(0);
                 tableModel.addRow(new Object[]{
                 feedback.getId(),
@@ -855,7 +867,8 @@ public class StuffManagement extends javax.swing.JFrame {
                 feedback.getStuffFunction(),
                 feedback.getPassword(),
                 feedback.getImage(),
-
+                
+                
                });
             }else {
                 JOptionPane.showMessageDialog(this, "Stuff not found", "Fail", JOptionPane.ERROR_MESSAGE);
