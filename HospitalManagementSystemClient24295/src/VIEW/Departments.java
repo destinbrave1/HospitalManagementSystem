@@ -11,5 +11,5 @@ package VIEW;
  */
 public enum Departments {
     Administration,Emergency,Pediatrics,Surgery,Pharmacy,Psychiatry,Anesthesiology,Internal_Medicine,Obstetrics_and_Gynecology,Orthopedics,
-    Cardiology,Neurology,Radiology,Oncology,Nutrition_and_Dietetics
+    Cardiology,Neurology,Radiology,Oncology,Nutrition_and_Dietetics,Reception
 }

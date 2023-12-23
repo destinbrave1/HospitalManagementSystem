@@ -238,7 +238,14 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }
 }
 
-
+private boolean isInteger(String input) {
+    try {
+        Integer.parseInt(input);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -662,7 +669,28 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegisterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterbtnActionPerformed
-       try {
+       if(AmountINp.getText().trim().isEmpty()||
+               phoneINp.getText().trim().isEmpty()||
+               DateoFbithINpatientCombo.getDate()==null||
+               idInpt.getText().trim().isEmpty()||
+               SicknessInp.getText().trim().isEmpty())
+       {
+           JOptionPane.showMessageDialog(this, "complete all input fields","inputs",JOptionPane.ERROR_MESSAGE);
+       }
+       if(!isInteger(AmountINp.getText().trim()))
+              
+       {
+           JOptionPane.showMessageDialog(this, "invalid amount","invalid",JOptionPane.ERROR_MESSAGE);
+       }
+       if(!isInteger(phoneINp.getText().trim())||
+               phoneINp.getText().trim().length()!=10)
+       {
+           JOptionPane.showMessageDialog(this, "invalid phone number","invalid",JOptionPane.ERROR_MESSAGE);
+       }
+       {
+           
+       }
+        try {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         InpatientInterface inpatientInterface = (InpatientInterface) registry.lookup("inpatient");
         

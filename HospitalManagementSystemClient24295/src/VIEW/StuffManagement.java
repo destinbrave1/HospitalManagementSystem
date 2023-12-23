@@ -149,7 +149,14 @@ public class StuffManagement extends javax.swing.JFrame {
     
     return null; // Return null if the department is not found or an error occurs
 }
-
+private boolean isInteger(String input) {
+    try {
+        Integer.parseInt(input);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -642,14 +649,23 @@ public class StuffManagement extends javax.swing.JFrame {
         department_Combo.getSelectedItem() == null ||
         Phone_stuff.getText().trim().isEmpty() ||
         password_stuff.getText().trim().isEmpty() ||
-        RepeatPassword_stuff.getText().trim().isEmpty() ||
-        password_stuff.getText().trim().length() <= 5) {
-        JOptionPane.showMessageDialog(this, "Complete all input fields or check password length", "Input Error", JOptionPane.ERROR_MESSAGE);
+        RepeatPassword_stuff.getText().trim().isEmpty()) 
+         {
+        JOptionPane.showMessageDialog(this, "Complete all input fields ", "Input Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
+    if(password_stuff.getText().trim().length() < 5)
+    {
+        JOptionPane.showMessageDialog(this, "password should be 5 characters or more ", "Input Error", JOptionPane.ERROR_MESSAGE);
+    }
     if (!email_stuff.getText().endsWith("@gmail.com")) {
         JOptionPane.showMessageDialog(this, "Invalid email", "Email", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if(!isInteger(Phone_stuff.getText().trim())||
+        Phone_stuff.getText().trim().length() != 10)
+    {
+        JOptionPane.showMessageDialog(this, "invalid phone number", "invalid", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
