@@ -17,6 +17,7 @@ import SERVICE.InpatientInterface;
 import SERVICE.RoomInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -142,6 +143,36 @@ DefaultTableModel tableModel = new DefaultTableModel();
         e.printStackTrace();
     }
 }
+    private void printPatientBill()
+    {
+        Inpatients inp = new Inpatients();
+    if(idInpt.getText().trim().isEmpty() ||
+                nameInpt.getText().trim().isEmpty()||
+                SicknessInp.getText().trim().isEmpty()||
+                AmountINp.getText().trim().isEmpty()||
+                phoneINp.getText().trim().isEmpty()
+                )
+        {
+           JOptionPane.showMessageDialog(this, "Complete all patient information");
+        }
+   
+    else
+    {     
+        BillArea.setText("********************************************************************************\n");
+        BillArea.setText(BillArea.getText() + "\n\t\t* Inpatient fees Receipt * \n\nDate : "+inp.getInpatient_date_in()+"\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+        BillArea.setText(BillArea.getText() + "Inpatient Info \n\n");
+        BillArea.setText(BillArea.getText() + "Id Card no : " + idInpt.getText() + "\n\n");
+        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t\t Phone : " + phoneINp.getText()+"\n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tAmount paid : " + AmountINp.getText() + "Frw\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tSignature: \n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+    }
+    }
     private void appointmentRegistration()
     {
         try{
@@ -238,7 +269,14 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }
 }
 
-
+private boolean isInteger(String input) {
+    try {
+        Integer.parseInt(input);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -271,7 +309,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
         ReceiptBtn = new javax.swing.JButton();
         SAVEBILL = new javax.swing.JButton();
         Logoutbtn = new javax.swing.JButton();
-        Gobackbtn2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -459,31 +496,20 @@ DefaultTableModel tableModel = new DefaultTableModel();
             }
         });
 
-        Gobackbtn2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        Gobackbtn2.setIcon(new javax.swing.ImageIcon("/home/destin/Pictures/Project_Images/ICONS/back.resized.png")); // NOI18N
-        Gobackbtn2.setText("GO BACK");
-        Gobackbtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Gobackbtn2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(12, 12, 12)
+                        .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(SAVEBILL, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
-                        .addComponent(ReceiptBtn))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(Gobackbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ReceiptBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -493,9 +519,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
                     .addComponent(ReceiptBtn)
                     .addComponent(SAVEBILL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Gobackbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(Logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -676,7 +700,28 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegisterbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterbtnActionPerformed
-       try {
+       if(AmountINp.getText().trim().isEmpty()||
+               phoneINp.getText().trim().isEmpty()||
+               DateoFbithINpatientCombo.getDate()==null||
+               idInpt.getText().trim().isEmpty()||
+               SicknessInp.getText().trim().isEmpty())
+       {
+           JOptionPane.showMessageDialog(this, "complete all input fields","inputs",JOptionPane.ERROR_MESSAGE);
+       }
+       if(!isInteger(AmountINp.getText().trim()))
+              
+       {
+           JOptionPane.showMessageDialog(this, "invalid amount","invalid",JOptionPane.ERROR_MESSAGE);
+       }
+       if(!isInteger(phoneINp.getText().trim())||
+               phoneINp.getText().trim().length()!=10)
+       {
+           JOptionPane.showMessageDialog(this, "invalid phone number","invalid",JOptionPane.ERROR_MESSAGE);
+       }
+       {
+           
+       }
+        try {
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 6000);
         InpatientInterface inpatientInterface = (InpatientInterface) registry.lookup("inpatient");
         
@@ -689,7 +734,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
         Date selectedDate = DateoFbithINpatientCombo.getDate();
         String formattedDate = dateFormat.format(selectedDate);
-
+                      
         inpatient.setDate_of_birth(formattedDate);
         inpatient.setInpatient_sickness(SicknessInp.getText());
         inpatient.setInpatient_amount_paid(AmountINp.getText());
@@ -754,7 +799,7 @@ DefaultTableModel tableModel = new DefaultTableModel();
         BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
         BillArea.setText(BillArea.getText() + "Inpatient Info \n\n");
         BillArea.setText(BillArea.getText() + "Id Card no : " + idInpt.getText() + "\n\n");
-        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t Phone : " + phoneINp.getText()+"\n\n");
+        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t\t Phone : " + phoneINp.getText()+"\n\n");
         BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
 
         BillArea.setText(BillArea.getText() + "\t\t\tAmount paid : " + AmountINp.getText() + "Frw\n\n");
@@ -778,8 +823,41 @@ DefaultTableModel tableModel = new DefaultTableModel();
     }//GEN-LAST:event_BillAreaMouseClicked
 
     private void InpatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InpatientTableMouseClicked
+          
+    String id = tableModel.getValueAt(InpatientTable.getSelectedRow(), 1).toString();
+    String name = tableModel.getValueAt(InpatientTable.getSelectedRow(), 2).toString();
 
+    String dateStringFromTable = tableModel.getValueAt(InpatientTable.getSelectedRow(), 3).toString();
+    SimpleDateFormat dateFormatTable = new SimpleDateFormat("MMM d, yyyy");
+    Date selectedDate = null;
+
+    try {
+        selectedDate = dateFormatTable.parse(dateStringFromTable);
+    } catch (ParseException ex) {
+        ex.printStackTrace();
+        selectedDate = null;
+    }
+
+    String sickness = tableModel.getValueAt(InpatientTable.getSelectedRow(), 4).toString();
+    String amount = tableModel.getValueAt(InpatientTable.getSelectedRow(), 5).toString();
+    String department = tableModel.getValueAt(InpatientTable.getSelectedRow(), 6).toString();
+    String roomNumber = tableModel.getValueAt(InpatientTable.getSelectedRow(), 7).toString();
+    String phoneNumber = tableModel.getValueAt(InpatientTable.getSelectedRow(), 8).toString();
+
+    idInpt.setText(id);
+    nameInpt.setText(name);
     
+    if (selectedDate != null) {
+        DateoFbithINpatientCombo.setDate(selectedDate);
+    }
+
+    SicknessInp.setText(sickness);
+    AmountINp.setText(amount);
+    department_Combo.setSelectedItem(department);
+    Room_Combo.setSelectedItem(roomNumber);
+    phoneINp.setText(phoneNumber);
+    
+    printPatientBill();
     }//GEN-LAST:event_InpatientTableMouseClicked
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed
@@ -944,13 +1022,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
         check.show();
     }//GEN-LAST:event_TransferedMenuActionPerformed
 
-    private void Gobackbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gobackbtn2ActionPerformed
-
-        AdminHomePage doctors= new AdminHomePage();
-        doctors.show();
-        dispose();
-    }//GEN-LAST:event_Gobackbtn2ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -978,6 +1049,8 @@ DefaultTableModel tableModel = new DefaultTableModel();
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -991,7 +1064,6 @@ DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JTextField AmountINp;
     private javax.swing.JTextArea BillArea;
     private com.toedter.calendar.JDateChooser DateoFbithINpatientCombo;
-    private javax.swing.JButton Gobackbtn2;
     private javax.swing.JTable InpatientTable;
     private javax.swing.JButton Logoutbtn;
     private javax.swing.JButton ReceiptBtn;
