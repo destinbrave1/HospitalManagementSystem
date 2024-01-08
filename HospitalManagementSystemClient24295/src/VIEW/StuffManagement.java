@@ -791,7 +791,7 @@ private boolean isInteger(String input) {
             JOptionPane.showMessageDialog(this, feedback, "Updated successfully", JOptionPane.INFORMATION_MESSAGE);
 
             if (feedback != null) {
-                
+                id =0;
                 addRowData();
                 National_id_stuff.setText("");
                 usernameInp_stuff.setText("");

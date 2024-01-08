@@ -17,6 +17,7 @@ import SERVICE.InpatientInterface;
 import SERVICE.RoomInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -142,6 +143,36 @@ DefaultTableModel tableModel = new DefaultTableModel();
         e.printStackTrace();
     }
 }
+    private void printPatientBill()
+    {
+        Inpatients inp = new Inpatients();
+    if(idInpt.getText().trim().isEmpty() ||
+                nameInpt.getText().trim().isEmpty()||
+                SicknessInp.getText().trim().isEmpty()||
+                AmountINp.getText().trim().isEmpty()||
+                phoneINp.getText().trim().isEmpty()
+                )
+        {
+           JOptionPane.showMessageDialog(this, "Complete all patient information");
+        }
+   
+    else
+    {     
+        BillArea.setText("********************************************************************************\n");
+        BillArea.setText(BillArea.getText() + "\n\t\t* Inpatient fees Receipt * \n\nDate : "+inp.getInpatient_date_in()+"\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+        BillArea.setText(BillArea.getText() + "Inpatient Info \n\n");
+        BillArea.setText(BillArea.getText() + "Id Card no : " + idInpt.getText() + "\n\n");
+        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t\t Phone : " + phoneINp.getText()+"\n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tAmount paid : " + AmountINp.getText() + "Frw\n\n");
+
+        BillArea.setText(BillArea.getText() + "\t\t\tSignature: \n\n");
+        BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
+
+    }
+    }
     private void appointmentRegistration()
     {
         try{
@@ -768,7 +799,7 @@ private boolean isInteger(String input) {
         BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
         BillArea.setText(BillArea.getText() + "Inpatient Info \n\n");
         BillArea.setText(BillArea.getText() + "Id Card no : " + idInpt.getText() + "\n\n");
-        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t Phone : " + phoneINp.getText()+"\n\n");
+        BillArea.setText(BillArea.getText() + "Mr/Mm/Dr: " + nameInpt.getText() + "\t\t Phone : " + phoneINp.getText()+"\n\n");
         BillArea.setText(BillArea.getText() + "---------------------------------------------------------------------------------------------------------------------\n\n");
 
         BillArea.setText(BillArea.getText() + "\t\t\tAmount paid : " + AmountINp.getText() + "Frw\n\n");
@@ -792,8 +823,41 @@ private boolean isInteger(String input) {
     }//GEN-LAST:event_BillAreaMouseClicked
 
     private void InpatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InpatientTableMouseClicked
+          
+    String id = tableModel.getValueAt(InpatientTable.getSelectedRow(), 1).toString();
+    String name = tableModel.getValueAt(InpatientTable.getSelectedRow(), 2).toString();
 
+    String dateStringFromTable = tableModel.getValueAt(InpatientTable.getSelectedRow(), 3).toString();
+    SimpleDateFormat dateFormatTable = new SimpleDateFormat("MMM d, yyyy");
+    Date selectedDate = null;
+
+    try {
+        selectedDate = dateFormatTable.parse(dateStringFromTable);
+    } catch (ParseException ex) {
+        ex.printStackTrace();
+        selectedDate = null;
+    }
+
+    String sickness = tableModel.getValueAt(InpatientTable.getSelectedRow(), 4).toString();
+    String amount = tableModel.getValueAt(InpatientTable.getSelectedRow(), 5).toString();
+    String department = tableModel.getValueAt(InpatientTable.getSelectedRow(), 6).toString();
+    String roomNumber = tableModel.getValueAt(InpatientTable.getSelectedRow(), 7).toString();
+    String phoneNumber = tableModel.getValueAt(InpatientTable.getSelectedRow(), 8).toString();
+
+    idInpt.setText(id);
+    nameInpt.setText(name);
     
+    if (selectedDate != null) {
+        DateoFbithINpatientCombo.setDate(selectedDate);
+    }
+
+    SicknessInp.setText(sickness);
+    AmountINp.setText(amount);
+    department_Combo.setSelectedItem(department);
+    Room_Combo.setSelectedItem(roomNumber);
+    phoneINp.setText(phoneNumber);
+    
+    printPatientBill();
     }//GEN-LAST:event_InpatientTableMouseClicked
 
     private void SeachBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeachBtnActionPerformed

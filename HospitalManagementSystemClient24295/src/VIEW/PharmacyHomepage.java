@@ -213,7 +213,9 @@ public class PharmacyHomepage extends javax.swing.JFrame {
     }//GEN-LAST:event_Drugstore_menuActionPerformed
 
     private void LogoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutbtnActionPerformed
-      
+         LoginPage login = new LoginPage();
+         login.show();
+         dispose();
     }//GEN-LAST:event_LogoutbtnActionPerformed
 
     private void DrugsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrugsbtnActionPerformed
